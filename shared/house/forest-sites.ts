@@ -1,0 +1,77 @@
+import type { WorldProp } from './world-scenery';
+export const FOREST_CLEARINGS = [
+  { name: 'The watching tree', x: -20, z: 275, radius: 11 },
+  { name: 'The lost camp', x: -55, z: 275, radius: 10 },
+  { name: 'The old logging cabin', x: -165, z: 110, radius: 10 },
+  { name: 'The drowned grove', x: 172, z: 442, radius: 11 },
+  { name: 'The stone vigil', x: 45, z: 285, radius: 10 },
+  { name: 'The root hollow', x: -175, z: 245, radius: 9 },
+];
+const prop = (
+  id: string,
+  x: number,
+  z: number,
+  options: Partial<WorldProp> = {},
+): WorldProp => ({ id, x, z, y: 0, yaw: Math.PI, scale: 1, ...options });
+export const FOREST_PROPS = [
+  prop('tre_ancient_watcher', -20, 275, { solid: [3.2, 3.2] }),
+  prop('rck_arch', -20, 261),
+  prop('fst_stick_effigy', -24, 265),
+  prop('fst_stick_effigy', -16, 267, { yaw: 0.6 }),
+  prop('und_fairy_ring', -20, 268),
+  prop('fst_standing_stones', 45, 285),
+  prop('rck_cairn', 40, 275),
+  prop('rck_cairn', 49, 278),
+  prop('fst_campfire', -55, 275),
+  prop('fst_tent_abandoned', -58, 279, { yaw: 0.5, solid: [1.84, 2.75] }),
+  prop('fst_hollow_log', -51, 279, { yaw: 0.8, solid: [3, 1.23] }),
+  prop('fst_bone_dreamcatcher', -59, 273, { y: 2.5 }),
+  prop('fst_branch_lantern', -53, 272),
+  prop('fst_log_cabin', -165, 110, { solid: [6.8, 7.1] }),
+  prop('fst_stump_cluster', -158, 105),
+  prop('fst_split_fence', -169, 104),
+  prop('fst_split_fence', -172, 105, { yaw: 2.6 }),
+  prop('fst_signpost', -161, 100),
+  prop('fst_hunter_stand', -160, 120, { solid: [1.6, 2.68] }),
+  prop('fst_branch_lantern', -165, 104),
+  prop('wat_pond', 172, 442),
+  prop('wat_stream', 172, 433),
+  prop('fst_footbridge', 172, 433, { y: -0.4, yaw: Math.PI / 2 }),
+  prop('rck_stepping_stones', 168, 441),
+  prop('rck_cave_mouth', -175, 245, { solid: [6, 3.8] }),
+  prop('rck_cliff', -180, 244, { yaw: 0.4, solid: [4, 3] }),
+  prop('rck_cliff', -171, 248, { yaw: -0.4, solid: [4, 3] }),
+  prop('cre_giant_web', -174, 242, { y: 0.2 }),
+  prop('und_ivy_hang', -178, 241.8, { y: 1.2 }),
+  prop('und_vines', -170, 246, { y: 2.1 }),
+  prop('rck_boulder_mossy', -175, 101, { solid: [2.4, 2.2] }),
+  prop('rck_boulder_mossy', 39, 282, { solid: [2.4, 2.2] }),
+  prop('rck_boulder_mossy', 180, 441, { solid: [2.4, 2.2] }),
+  prop('rck_slab', -172, 237, { solid: [3, 2] }),
+  prop('tre_fallen', -177, 234, { yaw: 0.2, solid: [8, 2] }),
+  ...[
+    'blk_forest_grass',
+    'blk_moss',
+    'blk_leaf_litter',
+    'blk_podzol',
+    'blk_needles',
+    'blk_mud',
+    'blk_mycelium',
+    'blk_root_dirt',
+  ].map((id, i) =>
+    prop(id, -178 + (i % 4), 247 + Math.floor(i / 4), { y: -0.2, scale: 1.2 }),
+  ),
+  ...['blk_log_oak', 'blk_log_birch'].map((id, i) =>
+    prop(id, -160 + i, 106, { scale: 1 }),
+  ),
+];
+export const FOREST_CREATURES = [
+  { id: 'cre_owl', x: -60, z: 274, y: 4.2 },
+  { id: 'cre_wolf', x: -32, z: 264, y: 0 },
+  { id: 'cre_pale_stag', x: 51, z: 280, y: 0 },
+  { id: 'cre_fireflies', x: 169, z: 440, y: 1 },
+  { id: 'cre_fireflies', x: 44, z: 287, y: 1 },
+  { id: 'cre_wisp', x: -20, z: 268, y: 2.2 },
+] as const;
+
+export const FOREST_CAMP = FOREST_PROPS.find((p) => p.id === 'fst_campfire')!;

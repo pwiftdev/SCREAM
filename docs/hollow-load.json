@@ -1,0 +1,11 @@
+{
+  "clients": 300,
+  "rooms": [100, 100, 100],
+  "rampMs": 154,
+  "sampleMs": 4008,
+  "snapshots": 11998,
+  "payloadBytes": 110628398,
+  "rssMB": 224,
+  "localOnly": true,
+  "scope": "300 loopback SDK clients. Server/network load only; not 300 rendered browsers."
+}

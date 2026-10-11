@@ -1,0 +1,47 @@
+[
+  {
+    "seed": 4,
+    "phase": "finished",
+    "seconds": 382,
+    "required": 5,
+    "completedGenerators": 5,
+    "outcomes": ["escaped", "escaped", "escaped", "taken"],
+    "reason": "the night is over."
+  },
+  {
+    "seed": 19,
+    "phase": "finished",
+    "seconds": 382,
+    "required": 5,
+    "completedGenerators": 5,
+    "outcomes": ["escaped", "escaped", "escaped", "taken"],
+    "reason": "the night is over."
+  },
+  {
+    "seed": 77,
+    "phase": "finished",
+    "seconds": 482,
+    "required": 5,
+    "completedGenerators": 4,
+    "outcomes": ["taken", "taken", "taken", "taken"],
+    "reason": "the night is over."
+  },
+  {
+    "seed": 133,
+    "phase": "finished",
+    "seconds": 444,
+    "required": 5,
+    "completedGenerators": 4,
+    "outcomes": ["taken", "taken", "taken", "taken"],
+    "reason": "the night is over."
+  },
+  {
+    "seed": 888,
+    "phase": "finished",
+    "seconds": 444,
+    "required": 5,
+    "completedGenerators": 4,
+    "outcomes": ["taken", "taken", "taken", "taken"],
+    "reason": "the night is over."
+  }
+]

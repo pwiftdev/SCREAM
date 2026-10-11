@@ -1,0 +1,2153 @@
+{
+  "name": "Let's Scream Together — 3D Asset Pack",
+  "version": "1.0.0",
+  "units": "meters (1 block = 1 m)",
+  "up": "+Y",
+  "forward": "+Z",
+  "origin": "base center (asset rests on y=0)",
+  "textures": {
+    "size": "16×16 px per block face",
+    "filtering": "nearest (no mipmaps)",
+    "wrap": "repeat",
+    "colorSpace": "sRGB",
+    "emissive": "separate *_emissive.png maps; emissiveIntensity in GLB"
+  },
+  "rigging": "No skeletons. Animate the Group nodes named pivot_* (rotation at the joint). socket_* nodes are attachment points.",
+  "count": 89,
+  "assets": [
+    {
+      "id": "blk_grass",
+      "name": "Grass",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_grass.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_grass_side",
+        "m_grass_top",
+        "m_dirt"
+      ],
+      "notes": "Default ground. Top grass, sides dirt with a grass lip."
+    },
+    {
+      "id": "blk_dirt",
+      "name": "Dirt",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_dirt.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_dirt"
+      ],
+      "notes": "Under grass, grave mounds, open graves."
+    },
+    {
+      "id": "blk_gravel",
+      "name": "Gravel Path",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_gravel.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_gravel"
+      ],
+      "notes": "Paths through the graveyard and village."
+    },
+    {
+      "id": "blk_stone",
+      "name": "Stone",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_stone.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_stone"
+      ],
+      "notes": "Walls, crypts, cellars."
+    },
+    {
+      "id": "blk_stone_mossy",
+      "name": "Mossy Stone",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_stone_mossy.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_mossy"
+      ],
+      "notes": "Aged stone for ruins and the chapel."
+    },
+    {
+      "id": "blk_cobblestone",
+      "name": "Cobblestone",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_cobblestone.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_cobble"
+      ],
+      "notes": "Foundations, chimneys, chapel floor."
+    },
+    {
+      "id": "blk_crypt_brick",
+      "name": "Crypt Brick",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_crypt_brick.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_brick"
+      ],
+      "notes": "Mausoleums and crypt interiors."
+    },
+    {
+      "id": "blk_plank_oak",
+      "name": "Oak Planks",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_plank_oak.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_plank"
+      ],
+      "notes": "Starter house walls and floors."
+    },
+    {
+      "id": "blk_plank_ash",
+      "name": "Ash Planks",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_plank_ash.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_plank2"
+      ],
+      "notes": "Weathered grey planks. Abandoned houses."
+    },
+    {
+      "id": "blk_plank_dark",
+      "name": "Dark Planks",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_plank_dark.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_darkplank"
+      ],
+      "notes": "Beams, floors, fences, stairs."
+    },
+    {
+      "id": "blk_log",
+      "name": "Dead Log",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_log.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_log_side",
+        "m_log_top"
+      ],
+      "notes": "Corner posts and tree trunks."
+    },
+    {
+      "id": "blk_roof",
+      "name": "Roof Shingles",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_roof.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_roof"
+      ],
+      "notes": "Stack in steps for roofs and towers."
+    },
+    {
+      "id": "blk_dead_leaves",
+      "name": "Dead Leaves",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_dead_leaves.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": true,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_leaves"
+      ],
+      "notes": "Alpha-masked (MASK). Tree canopies, floor cover that hides trapdoors."
+    },
+    {
+      "id": "blk_iron",
+      "name": "Iron Block",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_iron.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_iron"
+      ],
+      "notes": "Gates, fences, heavy doors."
+    },
+    {
+      "id": "blk_pumpkin",
+      "name": "Pumpkin",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_pumpkin.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_pumpkin_side",
+        "m_pumpkin_top"
+      ],
+      "notes": "Uncarved. Front faces +Z."
+    },
+    {
+      "id": "blk_jack_o_lantern",
+      "name": "Jack-o'-Lantern",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_jack_o_lantern.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_pumpkin_side",
+        "m_pumpkin_top",
+        "m_pumpkin_face"
+      ],
+      "notes": "Emissive face (+Z). Add a warm point light (#ffb04a)."
+    },
+    {
+      "id": "blk_window_lit",
+      "name": "Lit Window",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_window_lit.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_window_lit"
+      ],
+      "notes": "Emissive glass. Pair with an interior light."
+    },
+    {
+      "id": "blk_window_dark",
+      "name": "Dark Window",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_window_dark.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_window_dark"
+      ],
+      "notes": "Unlit glass for empty houses."
+    },
+    {
+      "id": "blk_stained_red",
+      "name": "Red Stained Glass",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_stained_red.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_stained_red"
+      ],
+      "notes": "Chapel and mausoleum windows. Emissive."
+    },
+    {
+      "id": "blk_moon_window",
+      "name": "Moonlit Window",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_moon_window.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_moon_window"
+      ],
+      "notes": "Cold blue glass for interiors."
+    },
+    {
+      "id": "blk_bookshelf",
+      "name": "Bookshelf",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_bookshelf.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_shelf",
+        "m_plank"
+      ],
+      "notes": "Hiding spot. A stash can sit behind it."
+    },
+    {
+      "id": "blk_bone",
+      "name": "Bone Block",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_bone.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_bone"
+      ],
+      "notes": "Ossuary walls, decor."
+    },
+    {
+      "id": "blk_candy",
+      "name": "Candy Block",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_candy.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_candy"
+      ],
+      "notes": "Debug/visual block for candy piles."
+    },
+    {
+      "id": "blk_void",
+      "name": "Void",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_void.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_void"
+      ],
+      "notes": "Pure black. Doorways, holes, depth fakes."
+    },
+    {
+      "id": "blk_hay",
+      "name": "Hay Bale",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_hay.glb",
+      "size_m": [
+        1,
+        1,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_hay",
+        "m_solid_a8822e"
+      ],
+      "notes": "Farm plots, carnival, scarecrow fields."
+    },
+    {
+      "id": "blk_door",
+      "name": "Door (1×2)",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_door.glb",
+      "size_m": [
+        1,
+        2,
+        0.24
+      ],
+      "triangles": 24,
+      "meshes": 2,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_hinge"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_door",
+        "m_solid_8a7a5a"
+      ],
+      "notes": "Two blocks tall, 0.19 thick. Pivot on left edge for opening."
+    },
+    {
+      "id": "blk_trapdoor",
+      "name": "Trapdoor",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_trapdoor.glb",
+      "size_m": [
+        1,
+        0.19,
+        1
+      ],
+      "triangles": 12,
+      "meshes": 1,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_hinge"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_trapdoor"
+      ],
+      "notes": "Floor trap. 0.19 thick. Pivot on back edge."
+    },
+    {
+      "id": "blk_cobweb",
+      "name": "Cobweb",
+      "category": "Blocks",
+      "file": "assets/blocks/blk_cobweb.glb",
+      "size_m": [
+        0.85,
+        1,
+        0.85
+      ],
+      "triangles": 4,
+      "meshes": 2,
+      "emissive": false,
+      "alpha_mask": true,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_web"
+      ],
+      "notes": "Two crossed alpha planes. Slows movement."
+    },
+    {
+      "id": "prop_headstone",
+      "name": "Headstone",
+      "category": "Props",
+      "file": "assets/props/prop_headstone.glb",
+      "size_m": [
+        0.9,
+        1.16,
+        0.42
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_cobble",
+        "m_stone",
+        "m_headstone_face"
+      ],
+      "notes": "Base slab + carved stone. Front +Z."
+    },
+    {
+      "id": "prop_headstone_mossy",
+      "name": "Mossy Headstone",
+      "category": "Props",
+      "file": "assets/props/prop_headstone_mossy.glb",
+      "size_m": [
+        0.9,
+        1,
+        0.5
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_mossy",
+        "m_grass_top"
+      ],
+      "notes": "Older, tilted variant."
+    },
+    {
+      "id": "prop_stone_cross",
+      "name": "Stone Cross",
+      "category": "Props",
+      "file": "assets/props/prop_stone_cross.glb",
+      "size_m": [
+        0.9,
+        1.7,
+        0.5
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_cobble",
+        "m_stone"
+      ],
+      "notes": "Tall grave marker."
+    },
+    {
+      "id": "prop_iron_cross",
+      "name": "Iron Cross",
+      "category": "Props",
+      "file": "assets/props/prop_iron_cross.glb",
+      "size_m": [
+        0.7,
+        1.3,
+        0.14
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_iron",
+        "m_solid_6a3a22"
+      ],
+      "notes": "Rusted iron grave marker."
+    },
+    {
+      "id": "prop_grave_mound",
+      "name": "Grave Mound",
+      "category": "Props",
+      "file": "assets/props/prop_grave_mound.glb",
+      "size_m": [
+        0.9,
+        0.28,
+        1.8
+      ],
+      "triangles": 24,
+      "meshes": 2,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_dirt"
+      ],
+      "notes": "Fresh dirt mound, 1×2 footprint."
+    },
+    {
+      "id": "prop_open_grave",
+      "name": "Open Grave",
+      "category": "Props",
+      "file": "assets/props/prop_open_grave.glb",
+      "size_m": [
+        2.34,
+        1.31,
+        2.2
+      ],
+      "triangles": 108,
+      "meshes": 9,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_void",
+        "m_dirt",
+        "m_log_side",
+        "m_solid_6a6c74"
+      ],
+      "notes": "Hole with dirt pile and shovel. Interactable (search)."
+    },
+    {
+      "id": "prop_crypt_slab",
+      "name": "Crypt Slab",
+      "category": "Props",
+      "file": "assets/props/prop_crypt_slab.glb",
+      "size_m": [
+        1.2,
+        0.72,
+        2.2
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_mossy",
+        "m_stone"
+      ],
+      "notes": "Raised tomb, 1×2. Searchable for loose candy."
+    },
+    {
+      "id": "prop_fence_iron",
+      "name": "Iron Fence (1m)",
+      "category": "Props",
+      "file": "assets/props/prop_fence_iron.glb",
+      "size_m": [
+        1.1,
+        1.38,
+        0.1
+      ],
+      "triangles": 144,
+      "meshes": 12,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_iron"
+      ],
+      "notes": "Tileable segment. Spear tips."
+    },
+    {
+      "id": "prop_fence_wood",
+      "name": "Wood Fence (1m)",
+      "category": "Props",
+      "file": "assets/props/prop_fence_wood.glb",
+      "size_m": [
+        1.11,
+        1,
+        0.22
+      ],
+      "triangles": 84,
+      "meshes": 7,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_log_side",
+        "m_darkplank"
+      ],
+      "notes": "Crooked pickets. Plot borders."
+    },
+    {
+      "id": "prop_gate_iron",
+      "name": "Iron Gate (2m)",
+      "category": "Props",
+      "file": "assets/props/prop_gate_iron.glb",
+      "size_m": [
+        2.9,
+        2.7,
+        0.53
+      ],
+      "triangles": 276,
+      "meshes": 23,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_leaf_l",
+        "pivot_leaf_r"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_stone",
+        "m_cobble",
+        "m_iron"
+      ],
+      "notes": "Graveyard entrance. Two leaves, each with its own hinge pivot."
+    },
+    {
+      "id": "prop_lamp_post",
+      "name": "Lamp Post",
+      "category": "Props",
+      "file": "assets/props/prop_lamp_post.glb",
+      "size_m": [
+        0.95,
+        2.8,
+        0.4
+      ],
+      "triangles": 72,
+      "meshes": 6,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_cobble",
+        "m_iron",
+        "m_lantern"
+      ],
+      "notes": "Hanging lantern is emissive. Add point light at lantern (#ffb04a, range ~9m)."
+    },
+    {
+      "id": "prop_candles",
+      "name": "Candle Cluster",
+      "category": "Props",
+      "file": "assets/props/prop_candles.glb",
+      "size_m": [
+        0.36,
+        0.36,
+        0.3
+      ],
+      "triangles": 84,
+      "meshes": 7,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_wax",
+        "m_flame"
+      ],
+      "notes": "Three candles with emissive flames. Flicker the light."
+    },
+    {
+      "id": "prop_dead_tree",
+      "name": "Dead Tree",
+      "category": "Props",
+      "file": "assets/props/prop_dead_tree.glb",
+      "size_m": [
+        3.3,
+        5.14,
+        1.51
+      ],
+      "triangles": 132,
+      "meshes": 11,
+      "emissive": false,
+      "alpha_mask": true,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_log_side",
+        "m_leaves"
+      ],
+      "notes": "4.5m. Branches are log segments; small leaf clumps (alpha)."
+    },
+    {
+      "id": "prop_coffin",
+      "name": "Coffin",
+      "category": "Props",
+      "file": "assets/props/prop_coffin.glb",
+      "size_m": [
+        1.04,
+        0.8,
+        2.08
+      ],
+      "triangles": 108,
+      "meshes": 9,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_lid"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_darkplank",
+        "m_solid_4a0a0e",
+        "m_solid_8a7a5a",
+        "m_iron"
+      ],
+      "notes": "Lid ajar (pivot_lid). 0.7×2m."
+    },
+    {
+      "id": "prop_cauldron",
+      "name": "Cauldron",
+      "category": "Props",
+      "file": "assets/props/prop_cauldron.glb",
+      "size_m": [
+        1.06,
+        0.91,
+        1.06
+      ],
+      "triangles": 192,
+      "meshes": 16,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_iron",
+        "m_slime"
+      ],
+      "notes": "Emissive green brew + bubbles. Add green point light."
+    },
+    {
+      "id": "prop_scarecrow",
+      "name": "Scarecrow",
+      "category": "Props",
+      "file": "assets/props/prop_scarecrow.glb",
+      "size_m": [
+        1.9,
+        2.85,
+        0.8
+      ],
+      "triangles": 132,
+      "meshes": 11,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_log_side",
+        "m_solid_4a3a5a",
+        "m_hay",
+        "m_burlap",
+        "m_scarecrow_face",
+        "m_solid_3a2a1c"
+      ],
+      "notes": "Stitched burlap head. Can be animated as a fake-out monster."
+    },
+    {
+      "id": "prop_pew",
+      "name": "Chapel Pew",
+      "category": "Props",
+      "file": "assets/props/prop_pew.glb",
+      "size_m": [
+        2,
+        1.1,
+        0.5
+      ],
+      "triangles": 48,
+      "meshes": 4,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_darkplank"
+      ],
+      "notes": "2m bench, back faces -Z."
+    },
+    {
+      "id": "prop_altar",
+      "name": "Altar",
+      "category": "Props",
+      "file": "assets/props/prop_altar.glb",
+      "size_m": [
+        1.8,
+        1.38,
+        0.85
+      ],
+      "triangles": 156,
+      "meshes": 13,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_stone",
+        "m_mossy",
+        "m_solid_7a1016",
+        "m_wax",
+        "m_flame",
+        "m_bone",
+        "m_skull_face"
+      ],
+      "notes": "Stone altar with red cloth, candles and a skull."
+    },
+    {
+      "id": "prop_circus_tent",
+      "name": "Circus Tent",
+      "category": "Props",
+      "file": "assets/props/prop_circus_tent.glb",
+      "size_m": [
+        4.8,
+        5.2,
+        4.8
+      ],
+      "triangles": 84,
+      "meshes": 5,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_stripes",
+        "m_tent_dark",
+        "m_log_side",
+        "m_solid_9a1418"
+      ],
+      "notes": "Abandoned carnival. 8-sided, striped. Dark entrance at +Z."
+    },
+    {
+      "id": "prop_ticket_booth",
+      "name": "Ticket Booth",
+      "category": "Props",
+      "file": "assets/props/prop_ticket_booth.glb",
+      "size_m": [
+        1.8,
+        2.75,
+        2.1
+      ],
+      "triangles": 84,
+      "meshes": 7,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_plank2",
+        "m_darkplank",
+        "m_glow_d89040",
+        "m_stripes",
+        "m_roof",
+        "m_solid_9a1418"
+      ],
+      "notes": "Carnival booth with a lit window and striped awning."
+    },
+    {
+      "id": "prop_plot_sign",
+      "name": "Plot Sign",
+      "category": "Props",
+      "file": "assets/props/prop_plot_sign.glb",
+      "size_m": [
+        0.92,
+        1.47,
+        0.16
+      ],
+      "triangles": 24,
+      "meshes": 2,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_log_side",
+        "m_plank"
+      ],
+      "notes": "Wooden sign at each plot entrance. Show plot number/owner on the board in-engine."
+    },
+    {
+      "id": "prop_candy_pile",
+      "name": "Candy Pile",
+      "category": "Props",
+      "file": "assets/props/prop_candy_pile.glb",
+      "size_m": [
+        0.5,
+        0.18,
+        0.56
+      ],
+      "triangles": 132,
+      "meshes": 11,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_candy_glow",
+        "m_solid_e2561c",
+        "m_solid_f2b134",
+        "m_solid_c84aff",
+        "m_solid_f2ede4"
+      ],
+      "notes": "Loose candy pickup. Emissive so it reads in fog."
+    },
+    {
+      "id": "trap_spike_floor",
+      "name": "Spike Floor",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/trap_spike_floor.glb",
+      "size_m": [
+        1,
+        0.38,
+        1
+      ],
+      "triangles": 396,
+      "meshes": 33,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_iron",
+        "m_solid_9a9da3",
+        "m_solid_d8dbe0"
+      ],
+      "notes": "Stuns 2s on step. Spikes can animate up from y=-0.3."
+    },
+    {
+      "id": "trap_screamer_box",
+      "name": "Screamer Box",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/trap_screamer_box.glb",
+      "size_m": [
+        0.8,
+        1.55,
+        1.26
+      ],
+      "triangles": 96,
+      "meshes": 8,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_lid",
+        "pivot_popup_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_screamer",
+        "m_screamer_face",
+        "m_solid_9a9da3",
+        "m_hood",
+        "m_mask_face"
+      ],
+      "notes": "Jack-in-the-box that pops a masked head and screams. Stuns nearby players. Red emissive eyes."
+    },
+    {
+      "id": "trap_bear_trap",
+      "name": "Bear Trap",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/trap_bear_trap.glb",
+      "size_m": [
+        0.62,
+        0.2,
+        1
+      ],
+      "triangles": 336,
+      "meshes": 28,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_jaw_l",
+        "pivot_jaw_r"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_iron",
+        "m_solid_6a3a22",
+        "m_solid_b8bcc4"
+      ],
+      "notes": "Snaps shut (pivot_jaw_l/r rotate to 0). Roots raider 3s."
+    },
+    {
+      "id": "hide_stash_chest",
+      "name": "Stash Chest",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/hide_stash_chest.glb",
+      "size_m": [
+        0.88,
+        0.84,
+        0.92
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_lid"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_chest_side",
+        "m_chest_top",
+        "m_chest_front",
+        "m_solid_d9b45a"
+      ],
+      "notes": "Holds candy (max 3 per house). pivot_lid opens around the back edge."
+    },
+    {
+      "id": "hide_stash_chest_open",
+      "name": "Stash Chest (Open)",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/hide_stash_chest_open.glb",
+      "size_m": [
+        0.88,
+        1.42,
+        1.47
+      ],
+      "triangles": 156,
+      "meshes": 13,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_lid"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_chest_side",
+        "m_chest_top",
+        "m_chest_front",
+        "m_solid_d9b45a",
+        "m_candy_glow",
+        "m_solid_e2561c",
+        "m_solid_f2b134",
+        "m_solid_c84aff"
+      ],
+      "notes": "Found state. Emissive loot surface."
+    },
+    {
+      "id": "hide_decoy_chest",
+      "name": "Decoy Chest",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/hide_decoy_chest.glb",
+      "size_m": [
+        0.88,
+        0.84,
+        0.92
+      ],
+      "triangles": 48,
+      "meshes": 4,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_lid"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_chest_side",
+        "m_chest_top",
+        "m_chest_front",
+        "m_solid_9a1418",
+        "m_skull_face"
+      ],
+      "notes": "Fake stash: opening triggers an alarm. Tell: red lock and a tiny skull."
+    },
+    {
+      "id": "hide_bone_pile",
+      "name": "Bone Pile Stash",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/hide_bone_pile.glb",
+      "size_m": [
+        0.77,
+        0.36,
+        0.76
+      ],
+      "triangles": 120,
+      "meshes": 10,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_bone",
+        "m_skull_face"
+      ],
+      "notes": "Stash can be buried under it."
+    },
+    {
+      "id": "hide_hidden_shelf",
+      "name": "Hidden Shelf Door",
+      "category": "Traps & Hiding",
+      "file": "assets/traps_hiding/hide_hidden_shelf.glb",
+      "size_m": [
+        1.15,
+        2.1,
+        1.48
+      ],
+      "triangles": 84,
+      "meshes": 7,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_hinge"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_darkplank",
+        "m_void",
+        "m_chest_side",
+        "m_chest_top",
+        "m_chest_front",
+        "m_shelf",
+        "m_plank"
+      ],
+      "notes": "Bookshelf swings on pivot_hinge to reveal a stash nook."
+    },
+    {
+      "id": "item_lantern",
+      "name": "Handheld Lantern",
+      "category": "Items",
+      "file": "assets/items/item_lantern.glb",
+      "size_m": [
+        0.15,
+        0.36,
+        0.15
+      ],
+      "triangles": 84,
+      "meshes": 7,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_iron",
+        "m_lantern"
+      ],
+      "notes": "Default light source. Emissive glass + warm point light."
+    },
+    {
+      "id": "item_flashlight",
+      "name": "Flashlight",
+      "category": "Items",
+      "file": "assets/items/item_flashlight.glb",
+      "size_m": [
+        0.08,
+        0.08,
+        0.27
+      ],
+      "triangles": 48,
+      "meshes": 4,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_2b2c31",
+        "m_solid_3a3a40",
+        "m_glow_fff2d0",
+        "m_solid_9a1418"
+      ],
+      "notes": "Narrow cone light. Lens emissive at +Z."
+    },
+    {
+      "id": "item_lockpick",
+      "name": "Lockpick",
+      "category": "Items",
+      "file": "assets/items/item_lockpick.glb",
+      "size_m": [
+        0.06,
+        0.03,
+        0.2
+      ],
+      "triangles": 60,
+      "meshes": 5,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_3a2a1c",
+        "m_solid_b8bcc4"
+      ],
+      "notes": "Picks locked doors and chests faster."
+    },
+    {
+      "id": "item_key",
+      "name": "House Key",
+      "category": "Items",
+      "file": "assets/items/item_key.glb",
+      "size_m": [
+        0.06,
+        0.01,
+        0.16
+      ],
+      "triangles": 84,
+      "meshes": 7,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_b08a3a"
+      ],
+      "notes": "Owner key. Brass."
+    },
+    {
+      "id": "item_firecracker",
+      "name": "Firecracker",
+      "category": "Items",
+      "file": "assets/items/item_firecracker.glb",
+      "size_m": [
+        0.05,
+        0.27,
+        0.05
+      ],
+      "triangles": 60,
+      "meshes": 5,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_c41a24",
+        "m_solid_f2ede4",
+        "m_solid_3a3a40",
+        "m_glow_ffd060"
+      ],
+      "notes": "Throwable. Loud bang distracts or stuns."
+    },
+    {
+      "id": "item_smoke_bomb",
+      "name": "Smoke Bomb",
+      "category": "Items",
+      "file": "assets/items/item_smoke_bomb.glb",
+      "size_m": [
+        0.14,
+        0.18,
+        0.14
+      ],
+      "triangles": 60,
+      "meshes": 5,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_5a5c62",
+        "m_solid_2b2c31",
+        "m_solid_8a7a5a"
+      ],
+      "notes": "Throwable. Breaks line of sight for 6s."
+    },
+    {
+      "id": "item_map",
+      "name": "Night Map",
+      "category": "Items",
+      "file": "assets/items/item_map.glb",
+      "size_m": [
+        0.32,
+        0.02,
+        0.22
+      ],
+      "triangles": 24,
+      "meshes": 2,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_d9cfb4",
+        "m_mapp",
+        "m_solid_c9bf9f"
+      ],
+      "notes": "Shows nearby houses. Paper texture."
+    },
+    {
+      "id": "item_candy_corn",
+      "name": "Candy Corn",
+      "category": "Items",
+      "file": "assets/items/item_candy_corn.glb",
+      "size_m": [
+        0.06,
+        0.07,
+        0.03
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_f2b134",
+        "m_solid_e2561c",
+        "m_solid_f2ede4"
+      ],
+      "notes": "Currency pickup. Stackable."
+    },
+    {
+      "id": "item_wrapped_candy",
+      "name": "Wrapped Candy",
+      "category": "Items",
+      "file": "assets/items/item_wrapped_candy.glb",
+      "size_m": [
+        0.13,
+        0.05,
+        0.05
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_wrapper",
+        "m_solid_e2561c"
+      ],
+      "notes": "Currency pickup."
+    },
+    {
+      "id": "item_lollipop",
+      "name": "Lollipop",
+      "category": "Items",
+      "file": "assets/items/item_lollipop.glb",
+      "size_m": [
+        0.12,
+        0.27,
+        0.03
+      ],
+      "triangles": 24,
+      "meshes": 2,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_f2ede4",
+        "m_solid_c41a24",
+        "m_spiral"
+      ],
+      "notes": "Rare candy pickup (worth more)."
+    },
+    {
+      "id": "item_candy_pail",
+      "name": "Trick-or-Treat Pail",
+      "category": "Items",
+      "file": "assets/items/item_candy_pail.glb",
+      "size_m": [
+        0.32,
+        0.43,
+        0.32
+      ],
+      "triangles": 60,
+      "meshes": 5,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_pumpkin_side",
+        "m_candy_glow",
+        "m_pumpkin_face",
+        "m_solid_9a4a0e",
+        "m_solid_2b2c31"
+      ],
+      "notes": "Carry container (bag). Fill level can scale the loot inside."
+    },
+    {
+      "id": "item_crowbar",
+      "name": "Crowbar",
+      "category": "Items",
+      "file": "assets/items/item_crowbar.glb",
+      "size_m": [
+        0.03,
+        0.67,
+        0.13
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_9a1418"
+      ],
+      "notes": "Breaks boarded windows and trapdoors."
+    },
+    {
+      "id": "item_shovel",
+      "name": "Shovel",
+      "category": "Items",
+      "file": "assets/items/item_shovel.glb",
+      "size_m": [
+        0.2,
+        1.32,
+        0.04
+      ],
+      "triangles": 48,
+      "meshes": 4,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_log_side",
+        "m_darkplank",
+        "m_solid_6a6c74",
+        "m_solid_3a3a40"
+      ],
+      "notes": "Dig up buried stashes and graves."
+    },
+    {
+      "id": "item_scream_horn",
+      "name": "Scream Horn",
+      "category": "Items",
+      "file": "assets/items/item_scream_horn.glb",
+      "size_m": [
+        0.28,
+        0.28,
+        0.4
+      ],
+      "triangles": 40,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_solid_b08a3a",
+        "m_solid_2b2c31",
+        "m_solid_3a2a1c"
+      ],
+      "notes": "Amplifies your mic scream (bigger stun radius). Brass."
+    },
+    {
+      "id": "item_viewmodel_arm",
+      "name": "First-Person Arm",
+      "category": "Items",
+      "file": "assets/items/item_viewmodel_arm.glb",
+      "size_m": [
+        0.21,
+        0.21,
+        0.64
+      ],
+      "triangles": 36,
+      "meshes": 3,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [
+        "socket_hand"
+      ],
+      "materials": [
+        "m_sleeve",
+        "m_solid_5a0a0e",
+        "m_hand"
+      ],
+      "notes": "Viewmodel. Attach held items at socket_hand. Render on top of world."
+    },
+    {
+      "id": "char_player",
+      "name": "Player · Hollow Mask",
+      "category": "Characters",
+      "file": "assets/characters/char_player.glb",
+      "size_m": [
+        1,
+        2.07,
+        0.58
+      ],
+      "triangles": 120,
+      "meshes": 10,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_leg",
+        "m_sleeve",
+        "m_cloak",
+        "m_hand",
+        "m_hood",
+        "m_mask_face"
+      ],
+      "notes": "Rigged by pivots: pivot_head, pivot_armL/R (shoulder), pivot_legL/R (hip). 2.0m."
+    },
+    {
+      "id": "char_rival",
+      "name": "Player · Rival Cloak",
+      "category": "Characters",
+      "file": "assets/characters/char_rival.glb",
+      "size_m": [
+        1,
+        2.07,
+        0.58
+      ],
+      "triangles": 120,
+      "meshes": 10,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_leg",
+        "m_sleeveR",
+        "m_cloakR",
+        "m_hand",
+        "m_hood",
+        "m_mask_face"
+      ],
+      "notes": "Other players. Same rig, red cloak."
+    },
+    {
+      "id": "char_skin_pumpkin",
+      "name": "Skin · Pumpkin King",
+      "category": "Characters",
+      "file": "assets/characters/char_skin_pumpkin.glb",
+      "size_m": [
+        1,
+        2.12,
+        0.5
+      ],
+      "triangles": 108,
+      "meshes": 9,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_leg",
+        "m_sleeve",
+        "m_cloak",
+        "m_hand",
+        "m_pumpkin_side",
+        "m_pumpkin_face",
+        "m_solid_3d5a28"
+      ],
+      "notes": "Cosmetic skin. Emissive carved face."
+    },
+    {
+      "id": "mon_ghost",
+      "name": "Ghost",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_ghost.glb",
+      "size_m": [
+        1.55,
+        1.68,
+        0.8
+      ],
+      "triangles": 168,
+      "meshes": 14,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_armL",
+        "pivot_armR"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_ghost_sheet",
+        "m_ghost_face"
+      ],
+      "notes": "Floats 0.35m off ground; bob on Y. Faint emissive sheet."
+    },
+    {
+      "id": "mon_wraith",
+      "name": "Wraith",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_wraith.glb",
+      "size_m": [
+        1.43,
+        3.18,
+        0.95
+      ],
+      "triangles": 324,
+      "meshes": 27,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_wraith_robe",
+        "m_bone",
+        "m_wraith_face"
+      ],
+      "notes": "2.7m hooded figure, tattered hem, cold glowing eyes, bone claws. Floats."
+    },
+    {
+      "id": "mon_skeleton",
+      "name": "Skeleton",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_skeleton.glb",
+      "size_m": [
+        0.68,
+        1.99,
+        0.44
+      ],
+      "triangles": 132,
+      "meshes": 11,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_bone",
+        "m_skull_face"
+      ],
+      "notes": "Thin bone rig, same pivots as player. 1.95m."
+    },
+    {
+      "id": "mon_zombie",
+      "name": "Zombie",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_zombie.glb",
+      "size_m": [
+        1.06,
+        2,
+        1.01
+      ],
+      "triangles": 96,
+      "meshes": 8,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_zombie_pants",
+        "m_zombie_shirt",
+        "m_zombie_skin",
+        "m_zombie_face"
+      ],
+      "notes": "Arms forward walk pose. Torn shirt, red eye glints."
+    },
+    {
+      "id": "mon_pumpkin_brute",
+      "name": "Pumpkin Brute",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_pumpkin_brute.glb",
+      "size_m": [
+        2.05,
+        3.1,
+        0.8
+      ],
+      "triangles": 120,
+      "meshes": 10,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_solid_2a2018",
+        "m_burlap",
+        "m_solid_3a2a1c",
+        "m_pumpkin_side",
+        "m_pumpkin_face",
+        "m_solid_3d5a28"
+      ],
+      "notes": "2.9m heavy. Emissive carved head; add orange point light in head."
+    },
+    {
+      "id": "mon_spider",
+      "name": "Giant Spider",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_spider.glb",
+      "size_m": [
+        2.77,
+        1.11,
+        2.38
+      ],
+      "triangles": 240,
+      "meshes": 20,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_spider_body",
+        "m_spider_back",
+        "m_spider_face",
+        "m_bone"
+      ],
+      "notes": "8 legs (leg_L0..R3 segments). Red hourglass, 8 emissive eyes."
+    },
+    {
+      "id": "mon_bat",
+      "name": "Bat",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_bat.glb",
+      "size_m": [
+        1,
+        0.47,
+        0.14
+      ],
+      "triangles": 120,
+      "meshes": 10,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_wingL",
+        "pivot_wingR"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_bat_body",
+        "m_bat_face",
+        "m_bat_wing"
+      ],
+      "notes": "Swarm creature, wings spread. Flap via pivot_wingL/R."
+    },
+    {
+      "id": "mon_crow",
+      "name": "Crow",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_crow.glb",
+      "size_m": [
+        0.23,
+        0.36,
+        0.62
+      ],
+      "triangles": 96,
+      "meshes": 8,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_solid_3a3a40",
+        "m_crow",
+        "m_crow_face",
+        "m_solid_2a2a2e"
+      ],
+      "notes": "Perches on fences and headstones. Flies off when players get close."
+    },
+    {
+      "id": "mon_stalker",
+      "name": "The Stalker",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_stalker.glb",
+      "size_m": [
+        0.77,
+        3.25,
+        0.3
+      ],
+      "triangles": 156,
+      "meshes": 13,
+      "emissive": false,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_stalker",
+        "m_stalker_face"
+      ],
+      "notes": "3.2m. Pitch black, too-long limbs, pinprick eyes. Rare night event. Head tilts."
+    },
+    {
+      "id": "mon_witch",
+      "name": "Witch",
+      "category": "Monsters",
+      "file": "assets/monsters/mon_witch.glb",
+      "size_m": [
+        1,
+        2.84,
+        0.8
+      ],
+      "triangles": 180,
+      "meshes": 15,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_legL",
+        "pivot_legR",
+        "pivot_armL",
+        "pivot_armR",
+        "pivot_head"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_witch_robe",
+        "m_witch_skin",
+        "m_witch_face",
+        "m_witch_hat"
+      ],
+      "notes": "Bent hat, glowing yellow eyes. Brews in cauldrons."
+    },
+    {
+      "id": "str_starter_house",
+      "name": "Starter House",
+      "category": "Structures",
+      "file": "assets/structures/str_starter_house.glb",
+      "size_m": [
+        8,
+        7.5,
+        8
+      ],
+      "triangles": 384,
+      "meshes": 32,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [
+        "pivot_door"
+      ],
+      "sockets": [],
+      "materials": [
+        "m_darkplank",
+        "m_log_side",
+        "m_log_top",
+        "m_plank",
+        "m_window_lit",
+        "m_door",
+        "m_roof",
+        "m_cobble",
+        "m_lantern",
+        "m_pumpkin_side",
+        "m_pumpkin_top",
+        "m_pumpkin_face"
+      ],
+      "notes": "Free plot house, 7×6 footprint, block-aligned (1 unit = 1 block). Door +Z. Interior hollow for stashes/traps."
+    },
+    {
+      "id": "str_mausoleum",
+      "name": "Mausoleum",
+      "category": "Structures",
+      "file": "assets/structures/str_mausoleum.glb",
+      "size_m": [
+        4.4,
+        5.6,
+        5.4
+      ],
+      "triangles": 276,
+      "meshes": 23,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_cobble",
+        "m_brick",
+        "m_void",
+        "m_iron",
+        "m_stone",
+        "m_mossy",
+        "m_stained_red",
+        "m_wax",
+        "m_flame"
+      ],
+      "notes": "4.4×5.4 crypt. Dark doorway at +Z with gate, red stained window, iron cross."
+    },
+    {
+      "id": "str_chapel_tower",
+      "name": "Chapel Bell Tower",
+      "category": "Structures",
+      "file": "assets/structures/str_chapel_tower.glb",
+      "size_m": [
+        5.66,
+        15.2,
+        5.66
+      ],
+      "triangles": 208,
+      "meshes": 17,
+      "emissive": true,
+      "alpha_mask": false,
+      "pivots": [],
+      "sockets": [],
+      "materials": [
+        "m_cobble",
+        "m_mossy",
+        "m_stained_red",
+        "m_void",
+        "m_stone",
+        "m_solid_8a6a2a",
+        "m_roof",
+        "m_iron"
+      ],
+      "notes": "Forgotten chapel landmark. 4×4 base, 13m. Red emissive windows."
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+[
+  {
+    "id": "pine_tree_01",
+    "type": "model",
+    "source": "https://polyhaven.com/a/pine_tree_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "photography",
+      "Rico Cilliers": "modeling"
+    },
+    "triangles": 12149,
+    "file": "/assets/environment/pine_tree_01.glb"
+  },
+  {
+    "id": "wild_rooibos_bush",
+    "type": "model",
+    "source": "https://polyhaven.com/a/wild_rooibos_bush",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "James Ray Cock": "modeling",
+      "Jenelle van Heerden": "photography"
+    },
+    "triangles": 5177,
+    "file": "/assets/environment/wild_rooibos_bush.glb"
+  },
+  {
+    "id": "grass_medium_01",
+    "type": "model",
+    "source": "https://polyhaven.com/a/grass_medium_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "Photography",
+      "Rico Cilliers": "Modeling"
+    },
+    "triangles": 833,
+    "file": "/assets/environment/grass_medium_01.glb"
+  },
+  {
+    "id": "pine_sapling_small",
+    "type": "model",
+    "source": "https://polyhaven.com/a/pine_sapling_small",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "photography",
+      "Rico Cilliers": "modeling"
+    },
+    "triangles": 7796,
+    "file": "/assets/environment/pine_sapling_small.glb"
+  },
+  {
+    "id": "dead_tree_trunk",
+    "type": "model",
+    "source": "https://polyhaven.com/a/dead_tree_trunk",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "triangles": 4990,
+    "file": "/assets/environment/dead_tree_trunk.glb"
+  },
+  {
+    "id": "fern_02",
+    "type": "model",
+    "source": "https://polyhaven.com/a/fern_02",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "scanning",
+      "Rico Cilliers": "modeling"
+    },
+    "triangles": 1500,
+    "file": "/assets/environment/fern_02.glb"
+  },
+  {
+    "id": "rock_moss_set_01",
+    "type": "model",
+    "source": "https://polyhaven.com/a/rock_moss_set_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Kless Gyzen": "All"
+    },
+    "triangles": 3614,
+    "file": "/assets/environment/rock_moss_set_01.glb"
+  },
+  {
+    "id": "tree_stump_01",
+    "type": "model",
+    "source": "https://polyhaven.com/a/tree_stump_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "triangles": 2499,
+    "file": "/assets/environment/tree_stump_01.glb"
+  },
+  {
+    "id": "wooden_crate_01",
+    "type": "model",
+    "source": "https://polyhaven.com/a/wooden_crate_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "triangles": 2496,
+    "file": "/assets/environment/wooden_crate_01.glb"
+  },
+  {
+    "id": "barrel_03",
+    "type": "model",
+    "source": "https://polyhaven.com/a/barrel_03",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Serhii Khromov": "All"
+    },
+    "triangles": 1473,
+    "file": "/assets/environment/barrel_03.glb"
+  },
+  {
+    "id": "old_tyre",
+    "type": "model",
+    "source": "https://polyhaven.com/a/old_tyre",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "MP": "All"
+    },
+    "triangles": 1000,
+    "file": "/assets/environment/old_tyre.glb"
+  },
+  {
+    "id": "painted_wooden_bench",
+    "type": "model",
+    "source": "https://polyhaven.com/a/painted_wooden_bench",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Kirill Sannikov": "All"
+    },
+    "triangles": 630,
+    "file": "/assets/environment/painted_wooden_bench.glb"
+  },
+  {
+    "id": "portable_generator",
+    "type": "model",
+    "source": "https://polyhaven.com/a/portable_generator",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "James Ray Cock": "All"
+    },
+    "triangles": 9058,
+    "file": "/assets/environment/portable_generator.glb"
+  },
+  {
+    "id": "industrial_wall_lamp",
+    "type": "model",
+    "source": "https://polyhaven.com/a/industrial_wall_lamp",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Kuutti Siitonen": "All"
+    },
+    "triangles": 1798,
+    "file": "/assets/environment/industrial_wall_lamp.glb"
+  },
+  {
+    "id": "wheelchair_01",
+    "type": "model",
+    "source": "https://polyhaven.com/a/wheelchair_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Garreth Dean": "All"
+    },
+    "triangles": 6996,
+    "file": "/assets/environment/wheelchair_01.glb"
+  },
+  {
+    "id": "small_oil_can_01",
+    "type": "model",
+    "source": "https://polyhaven.com/a/small_oil_can_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Raven van de Werken": "All"
+    },
+    "triangles": 1800,
+    "file": "/assets/environment/small_oil_can_01.glb"
+  },
+  {
+    "id": "forest_floor",
+    "type": "material",
+    "source": "https://polyhaven.com/a/forest_floor",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "eye-candy.xyz": "All"
+    },
+    "file": "/assets/materials/forest_floor/"
+  },
+  {
+    "id": "brown_mud_02",
+    "type": "material",
+    "source": "https://polyhaven.com/a/brown_mud_02",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "file": "/assets/materials/brown_mud_02/"
+  },
+  {
+    "id": "weathered_planks",
+    "type": "material",
+    "source": "https://polyhaven.com/a/weathered_planks",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Dario Barresi": "Processing",
+      "Dimitrios Savva": "Photography"
+    },
+    "file": "/assets/materials/weathered_planks/"
+  },
+  {
+    "id": "rusty_metal",
+    "type": "material",
+    "source": "https://polyhaven.com/a/rusty_metal",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "file": "/assets/materials/rusty_metal/"
+  },
+  {
+    "id": "bark_brown_02",
+    "type": "material",
+    "source": "https://polyhaven.com/a/bark_brown_02",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "file": "/assets/materials/bark_brown_02/"
+  },
+  {
+    "id": "rough_plaster_03",
+    "type": "material",
+    "source": "https://polyhaven.com/a/rough_plaster_03",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "file": "/assets/materials/rough_plaster_03/"
+  },
+  {
+    "id": "dikhololo_night",
+    "type": "hdri",
+    "file": "/assets/environment/night.hdr",
+    "backgroundFile": "/assets/environment/night-sky.webp",
+    "source": "https://polyhaven.com/a/dikhololo_night",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "authors": {
+      "Greg Zaal": "All"
+    }
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "quality": "High",
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+  "viewport": "1600x900",
+  "samples": [
+    "60 fps · 542 calls · 5102k tris · 1×",
+    "60 fps · 542 calls · 5102k tris · 1×",
+    "60 fps · 542 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×",
+    "60 fps · 539 calls · 5102k tris · 1×"
+  ]
+}

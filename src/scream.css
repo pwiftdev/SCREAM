@@ -1,0 +1,43 @@
+.scream-logo {
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+.scream-vault progress {
+  display: block;
+  width: 100%;
+  height: 5px;
+  accent-color: #d77c45;
+  margin: 18px 0;
+}
+.scream-map {
+  display: block;
+  width: 100%;
+  max-height: 57vh;
+  background: radial-gradient(ellipse, #29332b66, #0b151477);
+  border: 1px solid #75816b22;
+}
+.scream-fine {
+  font-size: 11px !important;
+  line-height: 1.65;
+}
+.scream-vault {
+  border-top: 1px solid #ac956534;
+  padding-top: 25px;
+  margin: 25px 0;
+}
+.scream-vault h2 {
+  color: #dba173;
+  margin-bottom: 10px;
+}
+.hl-header {
+  background: linear-gradient(#070b10f2, #070b1099, transparent);
+}
+.hl-world-door {
+  border-left: 3px solid #c37640;
+  background: linear-gradient(110deg, #121b19f5, #0d1617ed);
+}
+@media (max-width: 650px) {
+  .scream-map {
+    max-height: 280px;
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "viewport": [1920, 1080],
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+  "productionAssets": true,
+  "headless": true,
+  "firstLoadTransferBytes": 14817826,
+  "resourceTimingBufferSize": 3000,
+  "houseReadyMs": 168.9776669999992,
+  "world": {
+    "gate": {
+      "frames": 301,
+      "fps": 60.00079735278874,
+      "p95Ms": 16.700000000000728
+    },
+    "cemetery": {
+      "frames": 301,
+      "fps": 60.00199342170837,
+      "p95Ms": 16.799999999999272
+    },
+    "carnival": {
+      "frames": 301,
+      "fps": 60.003189538314324,
+      "p95Ms": 16.799999999999272
+    },
+    "chapel": {
+      "frames": 301,
+      "fps": 60.00199342170836,
+      "p95Ms": 16.700000000000728
+    },
+    "harvest": {
+      "frames": 301,
+      "fps": 60.00199342170836,
+      "p95Ms": 16.799999999999272
+    },
+    "asylum": {
+      "frames": 301,
+      "fps": 60.00199342170836,
+      "p95Ms": 16.700000000000728
+    },
+    "ridge": {
+      "frames": 301,
+      "fps": 60.003189538314324,
+      "p95Ms": 16.700000000000728
+    },
+    "hills": {
+      "frames": 301,
+      "fps": 60.003189538314324,
+      "p95Ms": 16.700000000000728
+    },
+    "watcher": {
+      "frames": 301,
+      "fps": 60.00199342170836,
+      "p95Ms": 16.799999999999272
+    },
+    "forest-camp": {
+      "frames": 301,
+      "fps": 60.003189538314324,
+      "p95Ms": 16.700000000000728
+    },
+    "wetland": {
+      "frames": 301,
+      "fps": 60.00318953831433,
+      "p95Ms": 16.700000000000728
+    },
+    "forest-cabin": {
+      "frames": 301,
+      "fps": 60.00318953831433,
+      "p95Ms": 16.700000000000728
+    }
+  },
+  "house": {
+    "frames": 301,
+    "fps": 60.003189538314324,
+    "p95Ms": 16.799999999999272
+  },
+  "errors": [],
+  "scope": "One native Chromium renderer on this local machine. Not a midrange-device or internet-latency certification."
+}

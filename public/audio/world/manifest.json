@@ -1,0 +1,250 @@
+{
+  "sources": [
+    {
+      "id": "impact",
+      "sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8",
+      "url": "https://kenney.nl/media/pages/assets/impact-sounds/87b4ddecda-1677589768/kenney_impact-sounds.zip",
+      "file": "impact.zip",
+      "author": "Kenney",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "forest",
+      "sha256": "8fc7a0e9259c713ebc1736a900d431a3b73774ca935b04bd154fd63127455812",
+      "url": "https://cdn.freesound.org/previews/687/687054_11532701-hq.mp3",
+      "file": "forest.mp3",
+      "author": "deadrobotmusic",
+      "source": "https://freesound.org/people/deadrobotmusic/sounds/687054/",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "piano",
+      "sha256": "34106a287f3f8d4f9de51418c9a2a9d7caf2dd430dffc9f1e86b49aae333547f",
+      "url": "https://opengameart.org/sites/default/files/GoshtPiano2.ogg",
+      "file": "piano.ogg",
+      "author": "Kilua Boy",
+      "source": "https://opengameart.org/content/dark-environment-horror-games",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "caverns",
+      "sha256": "5c841ef1a7bacd2a038801ecee0741e200d1cf1cd08f36a6a89cce95bcfb6a8a",
+      "url": "https://opengameart.org/sites/default/files/caverns.ogg",
+      "file": "caverns.ogg",
+      "author": "congusbongus",
+      "source": "https://opengameart.org/content/ancient-caverns-horror-ambient-loop",
+      "license": "CC0-1.0"
+    }
+  ],
+  "assets": [
+    {
+      "id": "forest",
+      "file": "/audio/world/forest.mp3",
+      "source": "forest",
+      "processing": "Filtered, trimmed, one-second overlap seam, loudness normalized, MP3",
+      "bytes": 459116,
+      "sha256": "74f1ed0f16b56fb975112c162bfa75a6149bfd6fd36ff11de645fbc976eada83"
+    },
+    {
+      "id": "piano",
+      "file": "/audio/world/piano.mp3",
+      "source": "piano",
+      "processing": "Filtered, trimmed, one-second overlap seam, loudness normalized, MP3",
+      "bytes": 668132,
+      "sha256": "1d572146bda14d810dc9bc105bca6220dbb5d5ace033c5b4386f39fa733bd81f"
+    },
+    {
+      "id": "caverns",
+      "file": "/audio/world/caverns.mp3",
+      "source": "caverns",
+      "processing": "Filtered, trimmed, one-second overlap seam, loudness normalized, MP3",
+      "bytes": 654092,
+      "sha256": "056068f5d77ac7c4611d3922df05b70c8337191062472a9b67273ce7b49df8c4"
+    },
+    {
+      "id": "grass-0",
+      "file": "/audio/world/grass-0.wav",
+      "source": "impact",
+      "processing": "Source footstep_grass_000.ogg; mono PCM, normalized",
+      "bytes": 49658,
+      "sha256": "74f34606ca4c76fb7f23635c0a88fb37ddbcf9d588e9d0cfaaa953d1043c5883"
+    },
+    {
+      "id": "grass-1",
+      "file": "/audio/world/grass-1.wav",
+      "source": "impact",
+      "processing": "Source footstep_grass_001.ogg; mono PCM, normalized",
+      "bytes": 43004,
+      "sha256": "0f7e3583137287945acba58cfccccf7d3638e278e8c5495132838a6058856caf"
+    },
+    {
+      "id": "grass-2",
+      "file": "/audio/world/grass-2.wav",
+      "source": "impact",
+      "processing": "Source footstep_grass_002.ogg; mono PCM, normalized",
+      "bytes": 44210,
+      "sha256": "37c17a2d460ec961ded09abadb5e0816f8426cff615de31484bac423d00f59e1"
+    },
+    {
+      "id": "grass-3",
+      "file": "/audio/world/grass-3.wav",
+      "source": "impact",
+      "processing": "Source footstep_grass_003.ogg; mono PCM, normalized",
+      "bytes": 42730,
+      "sha256": "6bd212bb07c2c8038a62607fa52fe2687ba5c63a12e927fa848b9343c3f06ad4"
+    },
+    {
+      "id": "wood-0",
+      "file": "/audio/world/wood-0.wav",
+      "source": "impact",
+      "processing": "Source footstep_wood_000.ogg; mono PCM, normalized",
+      "bytes": 17448,
+      "sha256": "417b72687a788cd8fb84ad0a99832682ab35baf380c3da5c5bf5d19a264471df"
+    },
+    {
+      "id": "wood-1",
+      "file": "/audio/world/wood-1.wav",
+      "source": "impact",
+      "processing": "Source footstep_wood_001.ogg; mono PCM, normalized",
+      "bytes": 15994,
+      "sha256": "d78895fafb167d9f57532f37b3eca86c5908f85f9ccf36f901f1491b9b1467b7"
+    },
+    {
+      "id": "wood-2",
+      "file": "/audio/world/wood-2.wav",
+      "source": "impact",
+      "processing": "Source footstep_wood_002.ogg; mono PCM, normalized",
+      "bytes": 15982,
+      "sha256": "eacf6205e1bb431d51217d78825dfe3a169f592ff0596216720d575abc294272"
+    },
+    {
+      "id": "wood-3",
+      "file": "/audio/world/wood-3.wav",
+      "source": "impact",
+      "processing": "Source footstep_wood_003.ogg; mono PCM, normalized",
+      "bytes": 15990,
+      "sha256": "120e2a2104e5bfc252c979bdad0f9e48196a61c08beff066c9413fe780711ad8"
+    },
+    {
+      "id": "metal-0",
+      "file": "/audio/world/metal-0.wav",
+      "source": "impact",
+      "processing": "Source impactMetal_medium_000.ogg; mono PCM, normalized",
+      "bytes": 17286,
+      "sha256": "da1ae0db060061ca62d383173b401fce52f363f6e4d3fe0f5972557b381b1bce"
+    },
+    {
+      "id": "metal-1",
+      "file": "/audio/world/metal-1.wav",
+      "source": "impact",
+      "processing": "Source impactMetal_medium_001.ogg; mono PCM, normalized",
+      "bytes": 9074,
+      "sha256": "53203385fe371dd805bf5cca8dc63b75e4af490d25ceea68a2dced8303fb1bb4"
+    },
+    {
+      "id": "metal-2",
+      "file": "/audio/world/metal-2.wav",
+      "source": "impact",
+      "processing": "Source impactMetal_medium_002.ogg; mono PCM, normalized",
+      "bytes": 7518,
+      "sha256": "846575acbb02183bb16fc1b6010eaa21287658eafe76562bcceb7be274558022"
+    },
+    {
+      "id": "wood-hit-0",
+      "file": "/audio/world/wood-hit-0.wav",
+      "source": "impact",
+      "processing": "Source impactWood_heavy_000.ogg; mono PCM, normalized",
+      "bytes": 19928,
+      "sha256": "5a199ec26d25d8ab5c77eb4e32f9f7697a55827fa4e5a0689a4148bb9342227e"
+    },
+    {
+      "id": "wood-hit-1",
+      "file": "/audio/world/wood-hit-1.wav",
+      "source": "impact",
+      "processing": "Source impactWood_heavy_001.ogg; mono PCM, normalized",
+      "bytes": 19928,
+      "sha256": "bdc1ae434b2ff6d284a3400779023d2a9251fa1d3c9299749ef7156be547c467"
+    },
+    {
+      "id": "wood-hit-2",
+      "file": "/audio/world/wood-hit-2.wav",
+      "source": "impact",
+      "processing": "Source impactWood_heavy_002.ogg; mono PCM, normalized",
+      "bytes": 19928,
+      "sha256": "bc8ded268929577708a040156a3d075144f07f7e2f7fefbeb7948243a6ee4a24"
+    },
+    {
+      "id": "hit-0",
+      "file": "/audio/world/hit-0.wav",
+      "source": "impact",
+      "processing": "Source impactPunch_heavy_000.ogg; mono PCM, normalized",
+      "bytes": 41616,
+      "sha256": "eeba583334e7dc415bc7eb4aa0423cc055a7f6738c5603fc5d2c4ed005f73f1f"
+    },
+    {
+      "id": "hit-1",
+      "file": "/audio/world/hit-1.wav",
+      "source": "impact",
+      "processing": "Source impactPunch_heavy_001.ogg; mono PCM, normalized",
+      "bytes": 34378,
+      "sha256": "1eec87afb84f2d8656b0badf4af8fb9e2054029fb2c517d41771b7a4d5a617bb"
+    },
+    {
+      "id": "bell-0",
+      "file": "/audio/world/bell-0.wav",
+      "source": "impact",
+      "processing": "Source impactBell_heavy_000.ogg; mono PCM, normalized",
+      "bytes": 94810,
+      "sha256": "d82211c30701b25f2b2d63ad5f8d3d76874a548d3b0b9e1ed4eb060096a049e1"
+    },
+    {
+      "id": "tool-0",
+      "file": "/audio/world/tool-0.wav",
+      "source": "impact",
+      "processing": "Source impactMetal_light_000.ogg; mono PCM, normalized",
+      "bytes": 23948,
+      "sha256": "966cbb7a393c41d9f8acbe3ddc5edb70bbf44c454d5e75050e0f2db629f5975f"
+    },
+    {
+      "id": "tool-1",
+      "file": "/audio/world/tool-1.wav",
+      "source": "impact",
+      "processing": "Source impactMetal_light_001.ogg; mono PCM, normalized",
+      "bytes": 16010,
+      "sha256": "3f1957259f4c3af9e76112c2a94a0528642cb66c4154f9f1aac424884b22777e"
+    },
+    {
+      "id": "fire",
+      "file": "/audio/world/fire.wav",
+      "source": "original",
+      "processing": "Deterministic original synthesis; no external recording",
+      "bytes": 512044,
+      "sha256": "6d2ab061f5efa3f718bb992b2d565189e6ea2df9568817f99558c04f890db26d"
+    },
+    {
+      "id": "engine",
+      "file": "/audio/world/engine.wav",
+      "source": "original",
+      "processing": "Deterministic original synthesis; no external recording",
+      "bytes": 256044,
+      "sha256": "dee38b91761ae81b6cc846c47cfbaa2c46b33eed693b7defc8ea726ef36b6241"
+    },
+    {
+      "id": "swing",
+      "file": "/audio/world/swing.wav",
+      "source": "original",
+      "processing": "Deterministic original synthesis; no external recording",
+      "bytes": 35244,
+      "sha256": "284e29679c9b79434f9f153522a3c87588d8e786f39d51a584da79824bd22e0f"
+    },
+    {
+      "id": "heartbeat",
+      "file": "/audio/world/heartbeat.wav",
+      "source": "original",
+      "processing": "Deterministic original synthesis; no external recording",
+      "bytes": 32044,
+      "sha256": "9d05cfb575f7be49018cac4ef343cd2dd308c83149f0f1efa086fcf2c9c020f1"
+    }
+  ]
+}

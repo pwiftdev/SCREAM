@@ -1,0 +1,1 @@
+export const HOUSE_SCORE_SQL = `COALESCE(SUM(CASE WHEN r.outcome IN ('caught','pit') THEN 30 ELSE 0 END),0)+COUNT(DISTINCT r.wallet)*10+COALESCE(SUM(CASE WHEN LENGTH(r.mic)>2 THEN 5 ELSE 0 END),0)+COALESCE((SELECT AVG(rating)*2 FROM lane_ratings WHERE code=h.code),0)`;

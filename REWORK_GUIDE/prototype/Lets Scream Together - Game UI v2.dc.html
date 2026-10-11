@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<script src="voxel.js"></script>
+<script type="module" src="fp.js"></script>
+<style>html,body{margin:0;background:#000;overflow:hidden}a{color:#f2ede4}a:hover{color:#e01b22}canvas{image-rendering:pixelated}</style>
+</helmet>
+<div style="position:fixed;inset:0;background:#000;display:flex;flex-direction:column;font-family:'Archivo',sans-serif;color:#f2ede4;overflow:hidden">
+  <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+    <div style="height:48px;flex:none;display:flex;align-items:center;justify-content:safe center;gap:4px;background:#050506;border-bottom:1px solid #1c1c20;overflow-x:auto">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="7">
+        <button onClick="{{ n.go }}" style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:1px;padding:8px 12px;border:none;cursor:pointer;white-space:nowrap;background:{{ n.bg }};color:{{ n.fg }}" style-hover="color:#f2ede4">{{ n.label }}</button>
+      </sc-for>
+    </div>
+  </sc-if>
+  <div ref="{{ hostRef }}" style="flex:1;position:relative;overflow:hidden;min-height:0">
+    <div style="position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:{{ stageT }};overflow:hidden;background:#000">
+      <canvas ref="{{ fpRef }}" width="960" height="540" style="position:absolute;left:0;top:0;width:1920px;height:1080px;image-rendering:pixelated"></canvas>
+
+      <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="01 Loading" onClick="{{ loadingClick }}" style="position:absolute;inset:0;cursor:pointer">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,rgba(0,0,0,0.25),rgba(0,0,0,0.9) 75%)"></div>
+          <div style="position:absolute;left:0;right:0;top:200px;display:flex;flex-direction:column;align-items:center;gap:32px">
+            <img src="scream-3a-48px.svg" alt="" style="width:216px;height:216px;display:block;image-rendering:pixelated;box-shadow:0 0 0 2px #1d1d22,0 0 90px rgba(224,27,34,0.3)"></img>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:14px">
+              <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:120px;line-height:0.85;letter-spacing:2px;text-transform:uppercase;text-shadow:0 6px 0 #000">Let's Scream Together</div>
+              <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:8px;color:#e01b22">EVERY NIGHT IS HALLOWEEN</div>
+            </div>
+          </div>
+          <div style="position:absolute;left:520px;right:520px;bottom:250px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:'Silkscreen',monospace;font-size:16px;letter-spacing:2px">
+              <span style="color:#9a958c">{{ loadStatus }}</span><span>{{ loadPct }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(40,minmax(0,1fr));gap:4px">
+              <sc-for list="{{ loadSegs }}" as="sg" hint-placeholder-count="40"><div style="height:18px;background:{{ sg.c }}"></div></sc-for>
+            </div>
+          </div>
+          <div style="position:absolute;left:64px;bottom:56px;width:560px;display:flex;flex-direction:column;gap:10px;padding:20px 24px;background:rgba(8,8,10,0.84);border:1px solid #2a2a30">
+            <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>TIP</div>
+            <div style="font-size:20px;line-height:1.45;text-wrap:pretty">{{ tip }}</div>
+          </div>
+          <sc-if value="{{ loadDone }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;right:64px;bottom:64px;font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:4px;opacity:{{ blink }}">PRESS ANY KEY</div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="02 Main Menu" style="position:absolute;inset:0">
+          <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.94) 0%,rgba(0,0,0,0.7) 30%,rgba(0,0,0,0) 56%),radial-gradient(ellipse at 60% 50%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.7) 100%)"></div>
+          <div style="position:absolute;left:96px;top:72px;display:flex;align-items:center;gap:20px">
+            <img src="scream-3a-48px.svg" alt="" style="width:76px;height:76px;display:block;image-rendering:pixelated"></img>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:46px;line-height:0.9;letter-spacing:1px;text-transform:uppercase">Let's Scream Together</div>
+              <div style="font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:3px;color:#e01b22">NIGHT 1 · FOG NIGHT</div>
+            </div>
+          </div>
+          <div style="position:absolute;left:96px;top:290px;display:flex;flex-direction:column;gap:18px">
+            <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="5">
+              <button onClick="{{ m.go }}" style="display:flex;align-items:center;gap:24px;background:transparent;border:none;padding:4px 0;cursor:pointer;color:#f2ede4;text-align:left;transition:transform 0.15s ease" style-hover="transform:translateX(14px)">
+                <span style="width:18px;height:18px;flex:none;background:{{ m.mark }}"></span>
+                <span style="display:flex;flex-direction:column;gap:4px">
+                  <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:{{ m.size }};line-height:0.95;letter-spacing:1px;text-transform:uppercase">{{ m.label }}</span>
+                  <span style="font-family:'Archivo',sans-serif;font-size:18px;color:#9a958c">{{ m.sub }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="position:absolute;right:64px;top:64px;width:430px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:16px;padding:16px;background:rgba(8,8,10,0.84);border:1px solid #2a2a30">
+              <canvas ref="{{ spSkull }}" width="56" height="56" style="width:56px;height:56px;background:#141418;flex:none"></canvas>
+              <div style="flex:1;display:flex;flex-direction:column;gap:10px;min-width:0">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                  <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:30px;letter-spacing:1px">HOLLOWBONES</span>
+                  <span style="font-family:'Silkscreen',monospace;font-size:13px;color:#9a958c">LV 12</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:2px">
+                  <sc-for list="{{ xpSegs }}" as="x" hint-placeholder-count="20"><div style="height:8px;background:{{ x.c }}"></div></sc-for>
+                </div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(8,8,10,0.84);border:1px solid #2a2a30">
+                <canvas ref="{{ spCandyA }}" width="40" height="40" style="width:40px;height:40px;flex:none"></canvas>
+                <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;line-height:1">2,480</span><span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#9a958c">CANDY</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(8,8,10,0.84);border:1px solid #2a2a30">
+                <img src="scream-3a-48px.svg" alt="" style="width:40px;height:40px;display:block;image-rendering:pixelated;flex:none"></img>
+                <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;line-height:1">1,250</span><span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#9a958c">$SCREAM · SIMULATED</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="position:absolute;right:64px;top:290px;width:430px;padding:22px 24px;display:flex;flex-direction:column;gap:14px;background:rgba(8,8,10,0.84);border:1px solid #2a2a30">
+            <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>YOUR HOUSE</div>
+            <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:36px;line-height:1;text-transform:uppercase">Plot 07 · Hollow Lane</div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #2a2a30">
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:4px;border-right:1px solid #2a2a30"><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:32px;line-height:1">3</span><span style="font-family:'Silkscreen',monospace;font-size:11px;color:#9a958c">STASHES</span></div>
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:4px;border-right:1px solid #2a2a30"><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:32px;line-height:1;color:#f08a24">700</span><span style="font-family:'Silkscreen',monospace;font-size:11px;color:#9a958c">CANDY HIDDEN</span></div>
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:4px"><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:32px;line-height:1">72</span><span style="font-family:'Silkscreen',monospace;font-size:11px;color:#9a958c">NIGHTMARE</span></div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;font-size:17px;line-height:1.4;color:#cfc8ba"><span style="width:10px;height:10px;flex:none;margin-top:6px;background:#e01b22"></span>2 break-ins last night. One raider escaped with 180 candy.</div>
+            <button onClick="{{ goBuild }}" style="font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;padding:14px;background:transparent;color:#f2ede4;border:2px solid #f2ede4;cursor:pointer" style-hover="background:#f2ede4;color:#000">FORTIFY HOUSE</button>
+          </div>
+          <div style="position:absolute;right:64px;bottom:64px;width:430px;padding:22px 24px;display:flex;flex-direction:column;gap:14px;background:rgba(8,8,10,0.84);border:1px solid #2a2a30">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>TONIGHT</div>
+              <span style="font-family:'Silkscreen',monospace;font-size:13px;letter-spacing:1px">DAWN IN {{ dawn }}</span>
+            </div>
+            <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:36px;line-height:1;text-transform:uppercase">Fog Night</div>
+            <div style="font-size:17px;line-height:1.45;color:#cfc8ba;text-wrap:pretty">Visibility drops in the Graveyard. Stashes found tonight pay 20% more candy.</div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+              <sc-for list="{{ party }}" as="p" hint-placeholder-count="4">
+                <div style="height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:{{ p.bg }};border:1px solid {{ p.bd }}">
+                  <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:{{ p.size }};line-height:1;color:{{ p.fg }}">{{ p.top }}</span>
+                  <span style="font-family:'Silkscreen',monospace;font-size:10px;letter-spacing:1px;color:#9a958c">{{ p.sub }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPlots }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="03 Choose Plot" style="position:absolute;inset:0;background:#060607">
+          <div style="position:absolute;left:64px;top:44px;right:64px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <button onClick="{{ goMenu }}" style="align-self:flex-start;font-family:'Silkscreen',monospace;font-size:13px;letter-spacing:2px;padding:6px 0;background:transparent;border:none;color:#9a958c;cursor:pointer" style-hover="color:#f2ede4">‹ BACK  [ESC]</button>
+              <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:96px;line-height:0.85;text-transform:uppercase">Choose your plot</div>
+            </div>
+            <p style="margin:0 0 6px;max-width:560px;font-size:20px;line-height:1.45;color:#9a958c;text-wrap:pretty">Your plot is your haunted house. Build on it, hide candy in it, and defend it every night.</p>
+          </div>
+          <div style="position:absolute;left:64px;top:220px;width:1216px;height:684px;box-shadow:0 0 0 2px #26262b">
+            <canvas ref="{{ cvMap }}" width="1216" height="684" style="position:absolute;left:0;top:0;width:1216px;height:684px"></canvas>
+            <sc-for list="{{ mapLabels }}" as="z" hint-placeholder-count="6">
+              <div style="position:absolute;left:{{ z.l }};top:{{ z.t }};padding:4px 8px;background:rgba(0,0,0,0.72);font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:20px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;color:{{ z.c }}">{{ z.label }}</div>
+            </sc-for>
+            <sc-for list="{{ plots }}" as="p" hint-placeholder-count="13">
+              <button onClick="{{ p.pick }}" style="position:absolute;left:{{ p.l }};top:{{ p.t }};width:{{ p.w }};height:{{ p.h }};box-sizing:border-box;padding:4px 6px;display:flex;flex-direction:column;align-items:flex-start;gap:2px;cursor:pointer;font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:1px;text-align:left;background:{{ p.bg }};border:{{ p.bd }};color:{{ p.fg }}" style-hover="filter:brightness(1.35)">
+                <span>{{ p.id }}</span><span style="font-size:10px">{{ p.tag }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="position:absolute;left:64px;top:930px;display:flex;align-items:center;gap:36px;font-family:'Silkscreen',monospace;font-size:13px;letter-spacing:1px;color:#cfc8ba">
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:18px;height:14px;border:2px solid rgba(242,237,228,0.8)"></span>FREE</div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:18px;height:14px;border:2px solid #e01b22;background:rgba(224,27,34,0.25)"></span>SELECTED</div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:18px;height:14px;background:#3b2d47"></span>TAKEN</div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="width:18px;height:14px;border:2px solid #6a6c74;background:rgba(0,0,0,0.5)"></span>HOLDER PLOT · PLANNED</div>
+          </div>
+          <div style="position:absolute;left:1328px;top:220px;width:528px;height:684px;box-sizing:border-box;padding:28px;display:flex;flex-direction:column;gap:18px;background:#0c0c0f;border:1px solid #2a2a30">
+            <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>SELECTED PLOT</div>
+            <div style="height:200px;background:#060607;border:1px solid #1c1c20;position:relative">
+              <sc-if value="{{ sel.isFree }}" hint-placeholder-val="{{ true }}"><canvas ref="{{ cvPlotFree }}" width="470" height="198" style="position:absolute;left:0;top:0;width:470px;height:198px"></canvas></sc-if>
+              <sc-if value="{{ sel.isTaken }}" hint-placeholder-val="{{ false }}"><canvas ref="{{ cvPlotTaken }}" width="470" height="198" style="position:absolute;left:0;top:0;width:470px;height:198px"></canvas></sc-if>
+              <sc-if value="{{ sel.isHolder }}" hint-placeholder-val="{{ false }}"><canvas ref="{{ cvPlotHolder }}" width="470" height="198" style="position:absolute;left:0;top:0;width:470px;height:198px"></canvas></sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:60px;line-height:0.9;text-transform:uppercase">{{ sel.title }}</div>
+              <div style="font-size:18px;color:#9a958c">{{ sel.sub }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;border-top:1px solid #2a2a30">
+              <sc-for list="{{ sel.rows }}" as="r" hint-placeholder-count="3">
+                <div style="display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid #2a2a30;font-size:17px"><span style="color:#9a958c">{{ r.k }}</span><span style="font-weight:600">{{ r.v }}</span></div>
+              </sc-for>
+            </div>
+            <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+              <sc-if value="{{ sel.isFree }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ goBuild }}" style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;letter-spacing:2px;text-transform:uppercase;padding:16px;background:#e01b22;color:#000;border:none;cursor:pointer" style-hover="background:#ff2a31">Claim plot · Free</button>
+              </sc-if>
+              <sc-if value="{{ sel.isTaken }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ goExplore }}" style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;letter-spacing:2px;text-transform:uppercase;padding:16px;background:transparent;color:#f2ede4;border:2px solid #f2ede4;cursor:pointer" style-hover="background:#f2ede4;color:#000">Raid this house tonight</button>
+              </sc-if>
+              <sc-if value="{{ sel.isHolder }}" hint-placeholder-val="{{ false }}">
+                <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;letter-spacing:2px;text-transform:uppercase;padding:16px;text-align:center;color:#6a6c74;border:2px dashed #3a3a40">Holder plots · Planned</div>
+              </sc-if>
+              <div style="font-size:15px;line-height:1.45;color:#8d887f;text-wrap:pretty">Free plots stay free. Larger plots for $SCREAM holders are planned.</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isFP }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;pointer-events:none">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 50%,rgba(0,0,0,0.75) 100%)"></div>
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 48%,rgba(170,8,14,{{ terrorA }}) 100%)"></div>
+          <div style="position:absolute;left:949px;top:538px;width:22px;height:4px;background:#f2ede4;box-shadow:0 0 0 1px rgba(0,0,0,0.7)"></div>
+          <div style="position:absolute;left:958px;top:529px;width:4px;height:22px;background:#f2ede4;box-shadow:0 0 0 1px rgba(0,0,0,0.7)"></div>
+        </div>
+        <div style="position:absolute;left:580px;top:22px;width:760px;height:62px;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)">
+          <div style="position:absolute;left:0;right:0;top:30px;height:2px;background:rgba(242,237,228,0.25)"></div>
+          <sc-for list="{{ compass }}" as="c" hint-placeholder-count="20">
+            <div style="position:absolute;left:{{ c.x }};top:{{ c.top }};transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px">
+              <div style="width:2px;height:{{ c.h }};background:{{ c.col }}"></div>
+              <span style="font-family:'Silkscreen',monospace;font-size:{{ c.fs }};color:{{ c.col }};line-height:1">{{ c.label }}</span>
+            </div>
+          </sc-for>
+          <sc-for list="{{ markers }}" as="m" hint-placeholder-count="3">
+            <div style="position:absolute;left:{{ m.x }};top:0px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px">
+              <span style="width:14px;height:14px;background:{{ m.c }};box-shadow:0 0 0 2px #000"></span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;left:580px;top:88px;width:760px;height:24px;pointer-events:none">
+          <sc-for list="{{ markers }}" as="m" hint-placeholder-count="3">
+            <span style="position:absolute;left:{{ m.x }};top:0;transform:translateX(-50%);font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;white-space:nowrap;color:{{ m.c }};text-shadow:0 1px 0 #000;opacity:{{ m.op }}">{{ m.label }}</span>
+          </sc-for>
+        </div>
+        <div style="position:absolute;left:684px;bottom:32px;display:flex;flex-direction:column;gap:10px;width:552px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:20px">
+            <div style="display:flex;gap:3px">
+              <sc-for list="{{ stamPips }}" as="p" hint-placeholder-count="10"><span style="width:20px;height:14px;background:{{ p.c }};box-shadow:inset 0 -3px 0 rgba(0,0,0,0.35),0 0 0 1px #000"></span></sc-for>
+            </div>
+            <div style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px;text-shadow:0 2px 0 #000;opacity:{{ hotOp }}">{{ hotName }}</div>
+            <div style="display:flex;gap:3px">
+              <sc-for list="{{ bagPips }}" as="p" hint-placeholder-count="10"><span style="width:20px;height:14px;background:{{ p.c }};box-shadow:inset 0 -3px 0 rgba(0,0,0,0.35),0 0 0 1px #000"></span></sc-for>
+            </div>
+          </div>
+          <div style="display:flex;gap:0;padding:4px;background:rgba(0,0,0,0.7);box-shadow:0 0 0 2px #2a2a30">
+            <sc-for list="{{ hotbar }}" as="h" hint-placeholder-count="9">
+              <button onClick="{{ h.pick }}" style="position:relative;flex:1;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;background:{{ h.bg }};border:none;box-shadow:inset 0 0 0 {{ h.bw }} {{ h.bd }}" style-hover="background:rgba(242,237,228,0.08)">
+                <span style="position:absolute;left:4px;top:2px;font-family:'Silkscreen',monospace;font-size:9px;color:#6a6c74">{{ h.num }}</span>
+                <canvas ref="{{ h.ref }}" width="40" height="40" style="width:40px;height:40px"></canvas>
+                <span style="position:absolute;right:5px;bottom:2px;font-family:'Silkscreen',monospace;font-size:12px;text-shadow:0 1px 0 #000">{{ h.count }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isExplore }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="05 Explore HUD" style="position:absolute;inset:0;pointer-events:none">
+          <div style="position:absolute;left:40px;top:32px;width:440px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:baseline;gap:14px">
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:48px;line-height:0.9;text-shadow:0 3px 0 #000">02:14:37</span>
+              <span style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px;color:#9a958c">UNTIL DAWN</span>
+            </div>
+            <div style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px;color:#e01b22">FOG-COVERED GRAVEYARD · FOG NIGHT</div>
+            <div style="display:flex;flex-direction:column;gap:10px;padding-top:4px">
+              <sc-for list="{{ objectives }}" as="o" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;align-items:flex-start">
+                  <span style="width:12px;height:12px;flex:none;margin-top:5px;box-sizing:border-box;border:2px solid {{ o.bd }};background:{{ o.fill }}"></span>
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <span style="font-size:18px;font-weight:600;color:{{ o.fg }};text-shadow:0 2px 0 #000">{{ o.t }}</span>
+                    <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#9a958c">{{ o.s }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:absolute;right:40px;top:32px;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <canvas ref="{{ spBag }}" width="44" height="44" style="width:44px;height:44px"></canvas>
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:64px;line-height:0.85;color:#f08a24;text-shadow:0 3px 0 #000">{{ carried }}</span>
+            </div>
+            <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba;text-shadow:0 1px 0 #000">CARRIED / 500 · 700 SAFE AT HOME</span>
+          </div>
+          <div style="position:absolute;left:40px;top:430px;display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ partyHud }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:48px;height:48px;flex:none;box-sizing:border-box;border:2px solid {{ p.c }};background:#000;display:flex;align-items:center;justify-content:center;opacity:{{ p.op }}">
+                  <img src="scream-3a-48px.svg" alt="" style="width:40px;height:40px;display:block;image-rendering:pixelated"></img>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:2px">
+                  <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:22px;line-height:1;text-shadow:0 2px 0 #000">{{ p.name }}</span>
+                  <span style="font-family:'Silkscreen',monospace;font-size:10px;letter-spacing:1px;color:{{ p.c }}">{{ p.s }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:absolute;right:40px;top:430px;width:380px;display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ feed }}" as="f" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;background:{{ f.bg }};border-left:3px solid {{ f.bd }}">
+                <span style="flex:1;font-size:15px;line-height:1.35;text-shadow:0 1px 0 #000">{{ f.t }}</span>
+                <span style="font-family:'Silkscreen',monospace;font-size:10px;color:#cfc8ba;white-space:nowrap">{{ f.k }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:absolute;left:0;right:0;top:584px;display:flex;flex-direction:column;align-items:center;gap:10px">
+            <span style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px;color:#cfc8ba;text-shadow:0 2px 0 #000">OLD TOMB · 4M</span>
+            <button onClick="{{ startSearch }}" style="pointer-events:auto;display:flex;align-items:center;gap:12px;padding:0;background:transparent;border:none;cursor:pointer;color:#f2ede4">
+              <span style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#f2ede4;color:#000;font-family:'Silkscreen',monospace;font-size:16px;box-shadow:0 3px 0 #6a6c74">E</span>
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;text-shadow:0 2px 0 #000">Hold to search</span>
+            </button>
+            <div style="width:240px;display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:2px">
+              <sc-for list="{{ searchSegs }}" as="sg" hint-placeholder-count="20"><div style="height:6px;background:{{ sg.c }};box-shadow:0 0 0 1px rgba(0,0,0,0.6)"></div></sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;left:50%;top:380px;transform:translateX(-50%);display:flex;align-items:center;gap:14px">
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:48px;color:#f08a24;text-shadow:0 3px 0 #000">+24 CANDY</span>
+              <span style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:1px;color:#cfc8ba;text-shadow:0 1px 0 #000">LOOSE CANDY IN THE TOMB</span>
+            </div>
+          </sc-if>
+          <div style="position:absolute;left:40px;bottom:32px;width:420px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:10px">
+                <canvas ref="{{ spMic }}" width="28" height="28" style="width:28px;height:28px"></canvas>
+                <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:24px;text-transform:uppercase;text-shadow:0 2px 0 #000">Scream</span>
+              </div>
+              <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba">[V] HOLD · {{ micDb }} DB</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(24,minmax(0,1fr));gap:2px">
+              <sc-for list="{{ micSegs }}" as="sg" hint-placeholder-count="24"><div style="height:12px;background:{{ sg.c }};box-shadow:0 0 0 1px rgba(0,0,0,0.6)"></div></sc-for>
+            </div>
+            <span style="font-family:'Silkscreen',monospace;font-size:10px;letter-spacing:1px;color:#9a958c">LOUDER SCREAMS STUN NEARBY PLAYERS LONGER</span>
+          </div>
+          <div style="position:absolute;right:40px;bottom:32px;display:flex;align-items:center;gap:16px">
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;text-transform:uppercase;color:#e01b22;text-shadow:0 2px 0 #000">You're being watched</span>
+              <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba">SOMEONE IS WITHIN 15M</span>
+            </div>
+            <canvas ref="{{ spHeart }}" width="64" height="64" style="width:64px;height:64px;transform:scale({{ heartS }})"></canvas>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isHeist }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="06 Stash Found" style="position:absolute;inset:0;pointer-events:none">
+          <div style="position:absolute;left:0;right:0;top:130px;display:flex;flex-direction:column;align-items:center;gap:8px">
+            <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:132px;line-height:0.85;text-transform:uppercase;color:#e01b22;text-shadow:0 6px 0 #000;opacity:{{ flash }}">Stash found</div>
+            <div style="font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:4px;color:#cfc8ba;text-shadow:0 2px 0 #000">WILLOWMERE'S HOUSE · PLOT 03</div>
+          </div>
+          <div style="position:absolute;left:40px;top:32px;display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px;color:#e01b22">ESCAPE BEFORE</span>
+            <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:72px;line-height:0.85;text-shadow:0 3px 0 #000">{{ heistClock }}</span>
+            <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba">GATE · 24M EAST</span>
+          </div>
+          <div style="position:absolute;right:40px;top:32px;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <canvas ref="{{ spBag2 }}" width="44" height="44" style="width:44px;height:44px"></canvas>
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:64px;line-height:0.85;color:#f08a24;text-shadow:0 3px 0 #000">492</span>
+            </div>
+            <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba">CARRIED / 500 · NOT SAFE UNTIL HOME</span>
+          </div>
+          <div style="position:absolute;left:0;right:0;top:660px;display:flex;flex-direction:column;align-items:center;gap:6px">
+            <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:56px;line-height:0.9;color:#f08a24;text-shadow:0 3px 0 #000">+312 CANDY</span>
+            <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba;text-shadow:0 1px 0 #000">YOUR SHARE OF THE REMAINING REWARD · HOUSE 936 → 624</span>
+            <button onClick="{{ goResults }}" style="pointer-events:auto;margin-top:14px;display:flex;align-items:center;gap:12px;padding:0;background:transparent;border:none;cursor:pointer;color:#f2ede4">
+              <span style="height:34px;padding:0 10px;display:flex;align-items:center;justify-content:center;background:#e01b22;color:#000;font-family:'Silkscreen',monospace;font-size:14px;box-shadow:0 3px 0 #6e0b0f">SPACE</span>
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:30px;text-transform:uppercase;text-shadow:0 2px 0 #000">Run for the gate</span>
+            </button>
+          </div>
+          <div style="position:absolute;left:40px;top:430px;display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ partyHeist }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:48px;height:48px;flex:none;box-sizing:border-box;border:2px solid {{ p.c }};background:#000;display:flex;align-items:center;justify-content:center;opacity:{{ p.op }}">
+                  <img src="scream-3a-48px.svg" alt="" style="width:40px;height:40px;display:block;image-rendering:pixelated"></img>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:2px">
+                  <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:22px;line-height:1;text-shadow:0 2px 0 #000">{{ p.name }}</span>
+                  <span style="font-family:'Silkscreen',monospace;font-size:10px;letter-spacing:1px;color:{{ p.c }}">{{ p.s }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:absolute;right:40px;top:430px;width:380px;display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ warnings }}" as="w" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;gap:4px;padding:10px 14px;background:{{ w.bg }};border-left:3px solid {{ w.bd }}">
+                <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase;color:{{ w.c }}">{{ w.t }}</span>
+                <span style="font-size:15px;line-height:1.35;color:#cfc8ba">{{ w.s }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="position:absolute;right:40px;bottom:32px;display:flex;align-items:center;gap:16px">
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;text-transform:uppercase;color:#e01b22;text-shadow:0 2px 0 #000">Owner is coming home</span>
+              <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba">WILLOWMERE · 60M AND CLOSING</span>
+            </div>
+            <canvas ref="{{ spHeart2 }}" width="64" height="64" style="width:64px;height:64px;transform:scale({{ heartS }})"></canvas>
+          </div>
+          <div style="position:absolute;left:40px;bottom:32px;width:420px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px"><span style="color:#e01b22">SPRINTING</span><span style="color:#cfc8ba">[SHIFT]</span></div>
+            <div style="font-size:15px;color:#cfc8ba;text-shadow:0 1px 0 #000">Bag almost full. Drop candy to run faster.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isBuild }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="04 Build Mode" style="position:absolute;inset:0">
+          <div style="position:absolute;left:0;right:0;top:0;height:120px;background:linear-gradient(180deg,rgba(0,0,0,0.85),rgba(0,0,0,0));pointer-events:none"></div>
+          <div style="position:absolute;left:40px;top:26px;display:flex;align-items:center;gap:20px">
+            <button onClick="{{ goMenu }}" style="width:52px;height:52px;font-family:'Silkscreen',monospace;font-size:20px;background:rgba(8,8,10,0.84);color:#f2ede4;border:1px solid #2a2a30;cursor:pointer" style-hover="border-color:#f2ede4">‹</button>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:40px;line-height:0.9;text-transform:uppercase">Build mode</div>
+              <div style="font-family:'Silkscreen',monospace;font-size:13px;letter-spacing:2px;color:#9a958c">PLOT 07 · HOLLOW LANE</div>
+            </div>
+          </div>
+          <div style="position:absolute;left:50%;top:26px;transform:translateX(-50%);display:flex;gap:8px">
+            <sc-for list="{{ tools }}" as="t" hint-placeholder-count="4">
+              <button onClick="{{ t.pick }}" style="height:52px;padding:0 18px;display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:13px;letter-spacing:1px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }}" style-hover="border-color:#f2ede4">
+                <span style="min-width:22px;height:22px;padding:0 4px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:11px;border:1px solid {{ t.fg }}">{{ t.key }}</span>{{ t.label }}
+              </button>
+            </sc-for>
+          </div>
+          <div style="position:absolute;right:40px;top:26px;display:flex;align-items:center;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:8px;width:220px">
+              <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:1px"><span style="color:#9a958c">BLOCKS</span><span>1,240 / 2,000</span></div>
+              <div style="height:8px;background:#222226"><div style="width:62%;height:100%;background:#f2ede4"></div></div>
+            </div>
+            <button onClick="{{ goHeist }}" style="height:52px;padding:0 20px;font-family:'Silkscreen',monospace;font-size:13px;letter-spacing:2px;background:rgba(8,8,10,0.84);color:#f2ede4;border:2px solid #f2ede4;cursor:pointer" style-hover="background:#f2ede4;color:#000">TEST RAID</button>
+            <button onClick="{{ goMenu }}" style="height:52px;padding:0 22px;font-family:'Silkscreen',monospace;font-size:13px;letter-spacing:2px;background:#e01b22;color:#000;border:none;cursor:pointer" style-hover="background:#ff2a31">PUBLISH HOUSE</button>
+          </div>
+          <div style="position:absolute;left:0;right:0;top:584px;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none">
+            <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase;text-shadow:0 2px 0 #000">{{ selItem.name }}</span>
+            <div style="display:flex;gap:18px;font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:#cfc8ba;text-shadow:0 1px 0 #000">
+              <span style="display:flex;align-items:center;gap:6px"><span style="padding:3px 6px;background:#f2ede4;color:#000">LMB</span>PLACE</span>
+              <span style="display:flex;align-items:center;gap:6px"><span style="padding:3px 6px;background:#f2ede4;color:#000">RMB</span>BREAK</span>
+              <span style="display:flex;align-items:center;gap:6px"><span style="padding:3px 6px;background:#f2ede4;color:#000">R</span>ROTATE</span>
+              <span style="display:flex;align-items:center;gap:6px"><span style="padding:3px 6px;background:#f2ede4;color:#000">E</span>PALETTE</span>
+            </div>
+          </div>
+          <div style="position:absolute;left:40px;top:128px;width:380px;bottom:150px;box-sizing:border-box;padding:18px;display:flex;flex-direction:column;gap:14px;background:rgba(8,8,10,0.86);border:1px solid #2a2a30">
+            <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>BUILD PALETTE</div>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px">
+              <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+                <button onClick="{{ c.pick }}" style="padding:10px 8px;font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:1px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }}" style-hover="border-color:#f2ede4">{{ c.label }}</button>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+              <sc-for list="{{ items }}" as="it" hint-placeholder-count="4">
+                <button onClick="{{ it.pick }}" style="height:124px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:4px;cursor:pointer;background:#111114;color:#f2ede4;border:2px solid {{ it.bd }}" style-hover="background:#18181c">
+                  <canvas ref="{{ it.ref }}" width="64" height="64" style="width:64px;height:64px"></canvas>
+                  <span style="font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;line-height:1.1;text-align:center">{{ it.name }}</span>
+                  <span style="font-family:'Silkscreen',monospace;font-size:11px;color:#f08a24">{{ it.costL }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="margin-top:auto;padding:14px;display:flex;flex-direction:column;gap:8px;background:#060607;border:1px solid #2a2a30">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+                <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase">{{ selItem.name }}</span>
+                <span style="font-family:'Silkscreen',monospace;font-size:12px;color:#f08a24">{{ selItem.costL }}</span>
+              </div>
+              <div style="font-size:15px;line-height:1.45;color:#cfc8ba;text-wrap:pretty">{{ selItem.desc }}</div>
+            </div>
+          </div>
+          <div style="position:absolute;right:40px;top:128px;width:380px;bottom:150px;box-sizing:border-box;padding:18px;display:flex;flex-direction:column;gap:12px;background:rgba(8,8,10,0.86);border:1px solid #2a2a30">
+            <div style="display:flex;align-items:center;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c">
+              <div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;background:#e01b22"></span>YOUR STASHES</div><span>2 / 3</span>
+            </div>
+            <sc-for list="{{ stashes }}" as="s" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:14px;padding:10px 12px;background:#111114;border:1px {{ s.style }} {{ s.bd }}">
+                <canvas ref="{{ s.ref }}" width="44" height="44" style="width:44px;height:44px;flex:none;opacity:{{ s.op }}"></canvas>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-weight:600;font-size:17px">{{ s.name }}</span><span style="font-size:14px;color:#9a958c">{{ s.where }}</span></div>
+                <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:28px;color:#f08a24">{{ s.amt }}</span>
+              </div>
+            </sc-for>
+            <div style="height:1px;background:#2a2a30;margin:4px 0"></div>
+            <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>NIGHTMARE RATING</div>
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:88px;line-height:0.85;color:#e01b22">72</span>
+              <span style="font-family:'Silkscreen',monospace;font-size:13px;color:#9a958c">/ 100 · HARD TO RAID</span>
+            </div>
+            <sc-for list="{{ rating }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;justify-content:space-between;font-size:15px"><span style="color:#cfc8ba">{{ r.k }}</span><span style="font-family:'Silkscreen',monospace;font-size:12px">{{ r.v }}</span></div>
+                <div style="display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px"><sc-for list="{{ r.segs }}" as="sg" hint-placeholder-count="10"><div style="height:10px;background:{{ sg.c }}"></div></sc-for></div>
+              </div>
+            </sc-for>
+            <div style="margin-top:auto;font-size:14px;line-height:1.45;color:#8d887f;text-wrap:pretty">If a raider finds a stash and escapes, they take a share of your house's remaining reward.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="07 Night Results" style="position:absolute;inset:0">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.88) 40%)"></div>
+          <div style="position:absolute;left:96px;right:96px;top:72px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="font-family:'Silkscreen',monospace;font-size:16px;letter-spacing:4px;color:#e01b22">DAWN · NIGHT 1 COMPLETE</div>
+              <div style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:128px;line-height:0.85;text-transform:uppercase">You made it to dawn</div>
+            </div>
+            <div style="display:flex;gap:12px;padding-bottom:8px">
+              <button onClick="{{ goBuild }}" style="height:64px;padding:0 26px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;background:transparent;color:#f2ede4;border:2px solid #f2ede4;cursor:pointer" style-hover="background:#f2ede4;color:#000">FORTIFY HOUSE</button>
+              <button onClick="{{ goMenu }}" style="height:64px;padding:0 30px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;background:#e01b22;color:#000;border:none;cursor:pointer" style-hover="background:#ff2a31">NEXT NIGHT</button>
+            </div>
+          </div>
+          <div style="position:absolute;left:96px;right:96px;top:330px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px">
+            <div style="padding:24px;display:flex;flex-direction:column;gap:14px;background:rgba(8,8,10,0.86);border:1px solid #2a2a30">
+              <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>YOUR RAIDS</div>
+              <sc-for list="{{ raids }}" as="r" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #2a2a30">
+                  <div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:18px">{{ r.who }}</span><span style="font-family:'Silkscreen',monospace;font-size:11px;color:#9a958c">{{ r.plot }}</span></div>
+                  <span style="font-family:'Silkscreen',monospace;font-size:11px;letter-spacing:1px;color:{{ r.sc }}">{{ r.status }}</span>
+                  <span style="width:70px;text-align:right;font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;color:{{ r.cc }}">{{ r.candy }}</span>
+                </div>
+              </sc-for>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:4px"><span style="color:#9a958c">Stolen</span><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:36px;color:#f08a24">+432</span></div>
+            </div>
+            <div style="padding:24px;display:flex;flex-direction:column;gap:14px;background:rgba(8,8,10,0.86);border:1px solid #2a2a30">
+              <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>YOUR HOUSE · PLOT 07</div>
+              <sc-for list="{{ defense }}" as="d" hint-placeholder-count="4">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #2a2a30"><span style="font-size:18px;color:#cfc8ba">{{ d.k }}</span><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;color:{{ d.c }}">{{ d.v }}</span></div>
+              </sc-for>
+              <div style="font-size:16px;color:#9a958c">Best trap: Screamer Box · 3 stuns</div>
+            </div>
+            <div style="padding:24px;display:flex;flex-direction:column;gap:14px;background:rgba(8,8,10,0.86);border:1px solid #2a2a30">
+              <div style="display:flex;align-items:center;gap:10px;font-family:'Silkscreen',monospace;font-size:14px;letter-spacing:2px;color:#9a958c"><span style="width:10px;height:10px;background:#e01b22"></span>SCARES</div>
+              <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:110px;line-height:0.85;color:#e01b22">87</span><span style="font-family:'Silkscreen',monospace;font-size:13px;color:#9a958c">LOUDEST SCREAM<br>SCREAM POWER</span></div>
+              <sc-for list="{{ scares }}" as="d" hint-placeholder-count="2">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #2a2a30"><span style="font-size:18px;color:#cfc8ba">{{ d.k }}</span><span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:30px;color:{{ d.c }}">{{ d.v }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:absolute;left:96px;right:96px;bottom:64px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #2a2a30;background:rgba(8,8,10,0.9)">
+            <div style="padding:22px 26px;display:flex;flex-direction:column;gap:6px;border-right:1px solid #2a2a30">
+              <span style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px;color:#9a958c">NET CANDY</span>
+              <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:64px;line-height:0.9;color:#f08a24">+312</span>
+            </div>
+            <div style="padding:22px 26px;display:flex;gap:18px;align-items:center;border-right:1px solid #2a2a30">
+              <img src="scream-3a-48px.svg" alt="" style="width:64px;height:64px;display:block;image-rendering:pixelated;flex:none"></img>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <span style="font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px;color:#9a958c">$SCREAM · SIMULATED</span>
+                <span style="font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:56px;line-height:0.9">+38</span>
+                <span style="font-size:13px;line-height:1.4;color:#8d887f">Rewards run as a local simulation for now.</span>
+              </div>
+            </div>
+            <div style="padding:22px 26px;display:flex;flex-direction:column;gap:10px;justify-content:center">
+              <div style="display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:12px;letter-spacing:2px"><span style="color:#9a958c">LV 12 → 13</span><span>+640 XP</span></div>
+              <div style="display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:3px"><sc-for list="{{ xpAfter }}" as="x" hint-placeholder-count="20"><div style="height:14px;background:{{ x.c }}"></div></sc-for></div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;loading&quot;,&quot;menu&quot;,&quot;plots&quot;,&quot;build&quot;,&quot;explore&quot;,&quot;heist&quot;,&quot;results&quot;],&quot;default&quot;:&quot;explore&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showNav&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;terrorPulse&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const SCREENS=[['loading','Loading'],['menu','Main Menu'],['plots','Choose Plot'],['build','Build Mode'],['explore','Explore'],['heist','Stash Found'],['results','Night Results']];
+const SCENE={loading:'loading',menu:'menu',plots:'menu',build:'build',explore:'explore',heist:'heist',results:'results'};
+const MAP={w:64,h:36,roads:[[0,17,64,2],[20,0,2,36],[42,0,2,36]],
+  zones:[{type:'graveyard',x:2,y:2,w:16,h:13,label:'Fog-Covered Graveyard'},{type:'chapel',x:24,y:2,w:16,h:12,label:'Forgotten Chapel'},{type:'carnival',x:46,y:2,w:16,h:13,label:'Abandoned Carnival'},{type:'water',x:24,y:21,w:16,h:12,label:'Black Pond'}],plots:[]};
+const OWN={'01':'GRAVEDUST','03':'WILLOWMERE','04':'MARA_X','05':'NOCTURNE','08':'HEXLING'};
+(()=>{ let i=1; for(const y of [21,26,31]) for(const x of [2,8,14]){ const id=String(i++).padStart(2,'0'); MAP.plots.push({id,x,y,w:5,h:4,state:OWN[id]?'taken':'free',owner:OWN[id]}); }
+  let j=1; for(const y of [21,28]) for(const x of [46,54]) MAP.plots.push({id:'H'+(j++),x,y,w:7,h:6,state:'holder'}); })();
+const TS=19;
+const ITEMS={
+  STRUCTURE:[['plank','plank','Plank Wall',2,'Basic wall block for rooms and corridors.'],['darkplank','darkplank','Dark Beam',2,'Sturdy frame for corners, floors and stairs.'],['stone','stone','Stone',3,'Heavy walls for cellars and crypts.'],['mossy','mossy','Mossy Stone',3,'Aged stone. Makes a room look long abandoned.'],['window','window','Lit Window',6,'Lets raiders see in — or makes them think they can.'],['door','door','Door',10,'Raiders have to open it, and opening it makes noise.']],
+  TRAPS:[['spike','spike','Spike Floor',25,'Stuns a raider for 2 seconds when they step on it.'],['trapdoor','trapdoor','Trapdoor',30,'Drops a raider into your cellar. They have to climb back out.'],['screamer','screamer','Screamer Box',40,'Blasts a scream at anyone nearby and stuns them for 2 seconds.'],['web','web','Cobweb',8,'Slows anyone moving through it.']],
+  HIDING:[['chest','chest','Stash Chest',0,'Holds candy. Up to 3 per house.'],['decoy','chest','Decoy Chest',20,'Looks like a stash. Opening it sets off an alarm.'],['shelf','shelf','Bookshelf',15,'A stash can sit hidden behind it.'],['bone','bone','Bone Pile',4,'Bury a stash under the bones.']],
+  DECOR:[['pumpkin','pumpkin','Jack-o\'-Lantern',5,'Glows through the fog. Draws raiders in.'],['lantern','lantern','Lantern',6,'Bright light. Raiders hate bright rooms.'],['roof','roof','Roof Tile',2,'Shingles for roofs and towers.'],['leaf','leaf','Dead Leaves',1,'Covers floors. Hides trapdoors.']]
+};
+const ALL={}; Object.values(ITEMS).flat().forEach(i=>ALL[i[0]]=i);
+const FPT={plank:'plank',darkplank:'darkplank',stone:'stone',mossy:'mossy',window:'window',door:'door',spike:'spike',trapdoor:'trapdoor',screamer:'screamer',web:'web',chest:'chest',decoy:'chest',shelf:'shelf',bone:'bone',pumpkin:'pumpkin',lantern:'lantern',roof:'roof',leaf:'leaves'};
+const TOOLS=[['place','PLACE','1'],['break','BREAK','2'],['rotate','ROTATE','R'],['move','MOVE','M']];
+const BHOT=['plank','darkplank','stone','window','door','spike','screamer','chest','pumpkin'];
+const EHOT=[['lantern','LANTERN',''],['key','LOCKPICK','3'],['firecracker','FIRECRACKER','2'],['smoke','SMOKE BOMB','1'],['map','MAP',''],['candy','CANDY CORN','12'],[null,'',''],[null,'',''],[null,'','']];
+const STATUS=['RAISING THE DEAD','CARVING PUMPKINS','LOADING THE GRAVEYARD','HIDING EVERYONE\'S CANDY','WAKING THE NEIGHBORHOOD'];
+const TIPS=['When a raider finds your stash and escapes, they take a share of your house\'s remaining reward. Spread your candy across rooms.','Scream into your mic to stun nearby players. Louder screams last longer.','Candy you carry isn\'t safe until you bring it home.'];
+const MARK={explore:[[358,'CHAPEL','#e01b22'],[52,'PLOT 03 · 180M','#f08a24'],[296,'HOME · 240M','#f2ede4']],heist:[[72,'GATE · 24M','#e01b22'],[250,'HOME · 310M','#f2ede4']]};
+const segs=(n,f,on,off,hot)=>Array.from({length:n},(_,i)=>({c:i<f?((hot!=null&&i>=hot)?'#e01b22':on):off}));
+const pad=n=>String(n).padStart(2,'0');
+
+class Component extends DCLogic {
+  state={ screen:this.props.startScreen ?? 'loading', progress:0, plot:'07', cat:'STRUCTURE', item:'plank', hot:0, tool:'place', eslot:0, searchP:0, searching:false, searchDone:-99, carried:180, heistT:38, scale:0.5, t:0, yaw:0, hotAt:0 };
+  _t=0; _c={};
+  memo(k,f){ return this._c[k]||(this._c[k]=f); }
+  withV(fn){ const go=()=>{ if(!window.Voxel) return setTimeout(go,60); setTimeout(fn,0); }; go(); }
+  withFP(fn){ const go=()=>{ if(!window.FP) return setTimeout(go,80); fn(window.FP); }; go(); }
+  cv(name){ return this.memo('cv'+name, el=>{ if(el) this.withV(()=>window.Voxel.draw(el,name)); }); }
+  sp(name,k){ return this.memo('sp'+name+(k||''), el=>{ if(el) this.withV(()=>window.Voxel.sprite(el,name)); }); }
+  ic(type,k){ return this.memo('ic'+type+(k||''), el=>{ if(el) this.withV(()=>window.Voxel.icon(el,type)); }); }
+  mapRef=el=>{ if(el) this.withV(()=>window.Voxel.topdown(el,MAP)); };
+  fpRef=el=>{ if(!el||this._fpEl===el) return; this._fpEl=el; this.withFP(FP=>{ FP.mount(el); FP.show(SCENE[this.state.screen]); FP.setBlock(FPT[this.state.item]||'plank'); }); };
+  hostRef=el=>{ if(this.ro){ this.ro.disconnect(); this.ro=null; } this.host=el; if(el&&window.ResizeObserver){ this.ro=new ResizeObserver(()=>this.fit()); this.ro.observe(el); } if(el) requestAnimationFrame(()=>this.fit()); };
+  componentDidMount(){
+    this.onResize=()=>this.fit(); window.addEventListener('resize',this.onResize); this.fit(); requestAnimationFrame(()=>this.fit()); [250,600,1200].forEach(d=>setTimeout(()=>this.fit(),d));
+    this.onKey=e=>this.key(e); window.addEventListener('keydown',this.onKey);
+    this.iv=setInterval(()=>this.step(),100);
+  }
+  componentDidUpdate(pp){ if(pp.showNav!==this.props.showNav) this.fit(); if(pp.startScreen!==this.props.startScreen && this.props.startScreen) this.go(this.props.startScreen); }
+  componentWillUnmount(){ window.removeEventListener('resize',this.onResize); window.removeEventListener('keydown',this.onKey); clearInterval(this.iv); if(this.ro) this.ro.disconnect(); }
+  fit(){ const h=this.host; let w=0,hh=0; if(h){ const r=h.getBoundingClientRect(); w=r.width; hh=r.height; }
+    if(w<50||hh<50){ const nav=(this.props.showNav ?? true)?48:0; w=window.innerWidth; hh=window.innerHeight-nav; }
+    if(w<50||hh<50){ if((this._ft=(this._ft||0)+1)<60) setTimeout(()=>this.fit(),100); return; } this._ft=0;
+    const k=Math.min(w/1920,hh/1080); if(Math.abs(k-this.state.scale)>0.0005) this.setState({scale:k}); }
+  go(screen){ if(!screen) return; this.setState(s=>({screen,searchP:0,searching:false,heistT:38,progress:screen==='loading'?0:s.progress})); if(window.FP) window.FP.show(SCENE[screen]); }
+  key(e){ const s=this.state, i=SCREENS.findIndex(x=>x[0]===s.screen);
+    if(s.screen==='loading'&&s.progress>=1) return this.go('menu');
+    if(e.key==='ArrowRight') return this.go(SCREENS[Math.min(SCREENS.length-1,i+1)][0]);
+    if(e.key==='ArrowLeft') return this.go(SCREENS[Math.max(0,i-1)][0]);
+    if(e.key==='Escape') return this.go('menu');
+    if(s.screen==='explore'&&(e.key==='e'||e.key==='E')) return this.startSearch();
+    if(s.screen==='heist'&&e.key===' ') return this.go('results');
+    if(s.screen==='menu'&&e.key==='Enter') return this.go('explore');
+    const n=parseInt(e.key,10); if(n>=1&&n<=9){ if(s.screen==='build') this.pickBuild(n-1); if(s.screen==='explore'||s.screen==='heist') this.setState({eslot:n-1,hotAt:this._t}); }
+  }
+  pickBuild(i){ const ty=BHOT[i]; this.setState({hot:i,item:ty,hotAt:this._t,cat:Object.keys(ITEMS).find(k=>ITEMS[k].some(x=>x[0]===ty))||this.state.cat}); if(window.FP) window.FP.setBlock(FPT[ty]); }
+  pickItem(id){ const bi=BHOT.indexOf(id); this.setState({item:id,hotAt:this._t,...(bi>=0?{hot:bi}:{})}); if(window.FP) window.FP.setBlock(FPT[id]||'plank'); }
+  startSearch=()=>{ if(!this.state.searching) this.setState({searching:true,searchP:0}); };
+  step(){ this._t++; if(this._t%10===0) this.fit(); const s=this.state, sc=s.screen, u={t:this._t};
+    if(window.FP&&(sc==='explore'||sc==='heist'||sc==='build')) u.yaw=window.FP.getYaw();
+    if(sc==='loading'&&s.progress<1) u.progress=Math.min(1,s.progress+0.012+Math.random()*0.012);
+    if(s.searching){ const p=s.searchP+0.06; if(p>=1){ u.searchP=0; u.searching=false; u.searchDone=this._t; u.carried=s.carried+24; } else u.searchP=p; }
+    if(sc==='heist'&&this._t%10===0&&s.heistT>0) u.heistT=s.heistT-1;
+    if(sc==='loading'||sc==='explore'||sc==='heist'||sc==='build'||this._t%10===0) this.setState(u);
+  }
+  renderVals(){
+    const s=this.state, t=s.t, sc=s.screen, pulse=this.props.terrorPulse ?? true;
+    const beat=(t%9===0||t%9===1)?1:(t%9===3)?.6:0;
+    const nav=SCREENS.map(([k,l],i)=>({label:pad(i+1)+' '+l.toUpperCase(),go:()=>this.go(k),bg:k===sc?'#e01b22':'transparent',fg:k===sc?'#000':'#9a958c'}));
+    const sel=(()=>{ const p=MAP.plots.find(x=>x.id===s.plot)||MAP.plots[6];
+      if(p.state==='holder') return {isFree:false,isTaken:false,isHolder:true,title:'Plot '+p.id,sub:'Crown Hill · Token holder district',rows:[{k:'Size',v:p.w+' × '+p.h+' chunks'},{k:'Tier',v:'$SCREAM holders'},{k:'Status',v:'Planned'}]};
+      if(p.state==='taken') return {isFree:false,isTaken:true,isHolder:false,title:'Plot '+p.id,sub:'Hollow Lane · Owned by '+p.owner,rows:[{k:'Size',v:p.w+' × '+p.h+' chunks'},{k:'Owner',v:p.owner},{k:'Stashes',v:'Unknown'}]};
+      return {isFree:true,isTaken:false,isHolder:false,title:'Plot '+p.id,sub:'Hollow Lane · Haunted Village',rows:[{k:'Size',v:p.w+' × '+p.h+' chunks'},{k:'Tier',v:'Free'},{k:'Neighbors',v:MAP.plots.filter(q=>q.state==='taken').length+' houses on the lane'}]}; })();
+    const plots=MAP.plots.map(p=>{ const on=p.id===s.plot;
+      return {id:p.id,pick:()=>this.setState({plot:p.id}),l:p.x*TS+'px',t:p.y*TS+'px',w:p.w*TS+'px',h:p.h*TS+'px',
+        tag:p.state==='holder'?'LOCKED':p.state==='taken'?'':'FREE',
+        bg:on?'rgba(224,27,34,0.25)':p.state==='holder'?'rgba(0,0,0,0.45)':'transparent',
+        bd:on?'3px solid #e01b22':p.state==='free'?'2px solid rgba(242,237,228,0.75)':p.state==='holder'?'2px solid #6a6c74':'2px solid rgba(242,237,228,0.12)',
+        fg:on?'#f2ede4':p.state==='taken'?'rgba(242,237,228,0.55)':'#f2ede4'}; });
+    const mapLabels=[...MAP.zones.map(z=>({label:z.label,l:z.x*TS+6+'px',t:(z.type==='water'?z.y+5:z.y+z.h-2.4)*TS+'px',c:'#f2ede4'})),{label:'Hollow Lane',l:2*TS+'px',t:19.4*TS+'px',c:'#f2ede4'},{label:'Crown Hill · Holders',l:46*TS+'px',t:19.4*TS+'px',c:'#9a958c'}];
+    const items=(ITEMS[s.cat]||[]).map(i=>({name:i[2],costL:i[3]?i[3]+' CANDY':'FREE',ref:this.ic(i[1]),bd:i[0]===s.item?'#e01b22':'#1c1c20',pick:()=>this.pickItem(i[0])}));
+    const si=ALL[s.item]||ALL.plank;
+    const dawnSec=Math.max(0,3*3600+41*60+12-Math.floor(t/10));
+    const isFP=sc==='explore'||sc==='heist'||sc==='build';
+    const yaw=s.yaw, PXD=760/140, rel=a=>{ let d=((a-yaw+540)%360)-180; return d; };
+    const compass=[]; const start=Math.ceil((yaw-70)/5)*5;
+    for(let a=start;a<=yaw+70;a+=5){ const A=((a%360)+360)%360, d=rel(A), card={0:'N',90:'E',180:'S',270:'W'}[A], major=A%15===0;
+      compass.push({x:(380+d*PXD)+'px',top:card?'22px':major?'24px':'26px',h:card?'10px':major?'8px':'4px',label:card||(A%45===0?String(A):''),fs:card?'16px':'10px',col:card?'#f2ede4':'rgba(242,237,228,0.6)'}); }
+    const markers=(MARK[sc]||[]).map(([a,label,c])=>{ const d=rel(a), cl=Math.max(-66,Math.min(66,d)); return {x:(380+cl*PXD)+'px',label,c,op:Math.abs(d)>66?'0.5':'1'}; });
+    let hotbar;
+    if(sc==='build') hotbar=BHOT.map((ty,i)=>({num:i+1,count:'',ref:this.ic(FPT[ty]==='leaves'?'leaf':ty,'hb'),pick:()=>this.pickBuild(i),bg:i===s.hot?'rgba(242,237,228,0.12)':'transparent',bw:i===s.hot?'3px':'1px',bd:i===s.hot?'#f2ede4':'#2a2a30'}));
+    else hotbar=EHOT.map(([sp,name,count],i)=>({num:i+1,count,ref:sp?this.sp(sp,'hb'):this.memo('noop',()=>{}),pick:()=>this.setState({eslot:i,hotAt:this._t}),bg:i===s.eslot?'rgba(242,237,228,0.12)':'transparent',bw:i===s.eslot?'3px':'1px',bd:i===s.eslot?'#f2ede4':'#2a2a30'}));
+    const hotName=sc==='build'?si[2].toUpperCase():(EHOT[s.eslot][1]||'');
+    const micLvl=sc==='explore'?Math.round(5+7*Math.abs(Math.sin(t*.35))+Math.random()*3):0;
+    return {
+      showNav:this.props.showNav ?? true, nav, stageT:'translate(-50%,-50%) scale('+s.scale+')', hostRef:this.hostRef, fpRef:this.fpRef,
+      isLoading:sc==='loading', isMenu:sc==='menu', isPlots:sc==='plots', isBuild:sc==='build', isExplore:sc==='explore', isHeist:sc==='heist', isResults:sc==='results', isFP,
+      goMenu:()=>this.go('menu'), goBuild:()=>this.go('build'), goExplore:()=>this.go('explore'), goHeist:()=>this.go('heist'), goResults:()=>this.go('results'),
+      cvPlotFree:this.cv('plotFree'), cvPlotTaken:this.cv('plotTaken'), cvPlotHolder:this.cv('plotHolder'), cvMap:this.mapRef,
+      spSkull:this.sp('skull'), spCandyA:this.sp('candy','a'), spBag:this.sp('bag'), spBag2:this.sp('bag','2'), spMic:this.sp('mic'), spHeart:this.sp('heart'), spHeart2:this.sp('heart','2'),
+      loadingClick:()=>{ if(s.progress>=1) this.go('menu'); },
+      loadStatus:STATUS[Math.min(4,Math.floor(s.progress*5))], loadPct:Math.round(s.progress*100)+'%', loadSegs:segs(40,Math.round(s.progress*40),'#e01b22','#1a1a1e'),
+      tip:TIPS[Math.floor(t/45)%TIPS.length], loadDone:s.progress>=1, blink:(Math.floor(t/6)%2)?'1':'0.35',
+      menuItems:[['Play Tonight','Head out and hunt for candy','explore',true],['My Haunted House','Build traps, hide your stashes','build'],['Choose a Plot','Free plots open on Hollow Lane','plots'],['Last Night\'s Report','Raids, scares and candy','results'],['Settings','Audio, mic and controls',null]]
+        .map(([label,sub,g,p])=>({label,sub,go:()=>this.go(g),mark:p?'#e01b22':'transparent',size:p?'80px':'56px'})),
+      xpSegs:segs(20,13,'#f2ede4','#2a2a30'), dawn:pad(Math.floor(dawnSec/3600))+':'+pad(Math.floor(dawnSec/60)%60)+':'+pad(dawnSec%60),
+      party:[{top:'YOU',sub:'HOLLOWBONES',bg:'#141418',bd:'#f2ede4',fg:'#f2ede4',size:'24px'},{top:'MARA',sub:'READY',bg:'#141418',bd:'#2a2a30',fg:'#f2ede4',size:'24px'},{top:'+',sub:'INVITE',bg:'transparent',bd:'#2a2a30',fg:'#9a958c',size:'34px'},{top:'+',sub:'INVITE',bg:'transparent',bd:'#2a2a30',fg:'#9a958c',size:'34px'}],
+      plots, mapLabels, sel,
+      tools:TOOLS.map(([k,l,key])=>({label:l,key,pick:()=>this.setState({tool:k}),bg:k===s.tool?'#e01b22':'rgba(8,8,10,0.84)',fg:k===s.tool?'#000':'#f2ede4',bd:k===s.tool?'#e01b22':'#2a2a30'})),
+      cats:Object.keys(ITEMS).map(k=>({label:k,pick:()=>this.setState({cat:k}),bg:k===s.cat?'#f2ede4':'#111114',fg:k===s.cat?'#000':'#cfc8ba',bd:k===s.cat?'#f2ede4':'#2a2a30'})),
+      items, selItem:{name:si[2],desc:si[4],costL:si[3]?si[3]+' CANDY':'FREE'},
+      stashes:[{name:'Stash A',where:'Back room chest',amt:'400',ref:this.ic('chest','A'),bd:'#2a2a30',style:'solid',op:'1'},{name:'Stash B',where:'Behind the stairs',amt:'300',ref:this.ic('chest','B'),bd:'#2a2a30',style:'solid',op:'1'},{name:'Empty slot',where:'Place a Stash Chest to use it',amt:'—',ref:this.ic('chest','C'),bd:'#3a3a40',style:'dashed',op:'0.3'}],
+      rating:[{k:'Traps',v:'8 PLACED',segs:segs(10,7,'#e01b22','#222226')},{k:'Hiding',v:'HARD',segs:segs(10,6,'#f2ede4','#222226')},{k:'Darkness',v:'VERY DARK',segs:segs(10,8,'#f2ede4','#222226')}],
+      terrorA:String(sc==='build'?0:sc==='heist'?(pulse?0.2+0.25*beat:0.28):(pulse?0.14+0.22*beat:0.18)), heartS:String(1+0.18*beat), flash:(sc==='heist'&&t%14<2)?'0.6':'1',
+      compass, markers, hotbar, hotName, hotOp:(t-s.hotAt<30)?'1':'0.55',
+      stamPips:segs(10,sc==='heist'?3:9,sc==='heist'?'#e01b22':'#f2ede4','rgba(0,0,0,0.6)'), bagPips:segs(10,Math.round((sc==='heist'?492:s.carried)/50),'#f08a24','rgba(0,0,0,0.6)'),
+      objectives:[{t:'Raid WILLOWMERE\'s house',s:'PLOT 03 · 180M NE',bd:'#f2ede4',fill:'transparent',fg:'#f2ede4'},{t:'Scare 3 players',s:'1 / 3',bd:'#f2ede4',fill:'transparent',fg:'#f2ede4'},{t:'Leave your house',s:'DONE',bd:'#6a6c74',fill:'#6a6c74',fg:'#8d887f'}],
+      partyHud:[{name:'MARA_X',s:'RAIDING PLOT 11',c:'#f08a24',op:'1'},{name:'HEXLING',s:'HIDING · CARNIVAL',c:'#f2ede4',op:'1'},{name:'NOCTURNE',s:'TRAPPED · PLOT 05',c:'#e01b22',op:'0.5'}],
+      partyHeist:[{name:'MARA_X',s:'ESCAPED · +240',c:'#f08a24',op:'1'},{name:'HEXLING',s:'HIDING · CARNIVAL',c:'#f2ede4',op:'1'},{name:'NOCTURNE',s:'TRAPPED · PLOT 05',c:'#e01b22',op:'0.5'}],
+      feed:[{t:'Someone is inside your house',k:'[H] WATCH',bg:'rgba(110,8,12,0.75)',bd:'#e01b22'},{t:'MARA_X escaped Plot 11 with 240 candy',k:'0:42',bg:'rgba(0,0,0,0.55)',bd:'#f08a24'},{t:'You scared GRAVEDUST',k:'+15',bg:'rgba(0,0,0,0.55)',bd:'#6a6c74'}],
+      startSearch:this.startSearch, searchSegs:segs(20,Math.round(s.searchP*20),'#f2ede4','rgba(0,0,0,0.6)'),
+      showToast:t-s.searchDone<30, carried:s.carried,
+      micSegs:segs(24,micLvl,'#f2ede4','rgba(0,0,0,0.55)',17), micDb:String(sc==='explore'?60+micLvl*2:0),
+      heistClock:'0:'+pad(s.heistT),
+      warnings:[{t:'Owner online',s:'WILLOWMERE got the alert and is heading home.',bg:'rgba(110,8,12,0.75)',bd:'#e01b22',c:'#f2ede4'},{t:'Trap ahead',s:'Spike floor between you and the door.',bg:'rgba(0,0,0,0.6)',bd:'#f2ede4',c:'#f2ede4'}],
+      raids:[{who:'WILLOWMERE',plot:'PLOT 03',status:'ESCAPED',sc:'#f2ede4',candy:'+312',cc:'#f08a24'},{who:'HEXLING',plot:'PLOT 08',status:'ESCAPED',sc:'#f2ede4',candy:'+120',cc:'#f08a24'},{who:'NOCTURNE',plot:'PLOT 05',status:'TRAPPED',sc:'#e01b22',candy:'0',cc:'#6a6c74'}],
+      defense:[{k:'Break-ins',v:'5',c:'#f2ede4'},{k:'Stopped by traps',v:'3',c:'#f2ede4'},{k:'Stashes found',v:'1',c:'#e01b22'},{k:'Candy lost',v:'−180',c:'#e01b22'}],
+      scares:[{k:'Players scared',v:'14',c:'#f2ede4'},{k:'Candy from scares',v:'+60',c:'#f08a24'}],
+      xpAfter:segs(20,19,'#f2ede4','#2a2a30')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "quality": "Medium",
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+  "viewport": "1600x900",
+  "samples": [
+    "60 fps · 395 calls · 3742k tris · 0.85×",
+    "60 fps · 395 calls · 3742k tris · 0.85×",
+    "60 fps · 395 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×",
+    "60 fps · 393 calls · 3742k tris · 0.85×"
+  ]
+}
