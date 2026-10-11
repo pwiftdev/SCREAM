@@ -60,7 +60,6 @@ export function World({
     distance: Infinity,
     x: H.WORLD_SPAWN_X,
     z: H.WORLD_SPAWN_Z,
-    district: 'Lost in the dark',
     notice: '',
     yaw: Math.PI,
     stamina: 100,

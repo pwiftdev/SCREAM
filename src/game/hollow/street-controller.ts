@@ -22,7 +22,6 @@ import { streetScene } from './street';
 import {
   moveStreet,
   nearestDoor,
-  district,
   worldBlocked,
   plotLocation,
 } from '../../../shared/house/neighborhood';
@@ -50,7 +49,6 @@ export interface StreetView {
   distance: number;
   x: number;
   z: number;
-  district: string;
   notice: string;
   yaw: number;
   stamina: number;
@@ -655,7 +653,6 @@ export class StreetController {
         distance: door.distance,
         x: c.position.x,
         z: c.position.z,
-        district: district(c.position),
         notice: now < this.noticeUntil ? this.notice : '',
       });
       this.loadNearby();

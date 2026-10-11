@@ -1,6 +1,6 @@
 # Heroku deployment and HUD audit — 11 October 2026
 
-- Reduced the outdoor top-left HUD to the live street count. The browser entry helper now checks the whole label so introductory copy cannot silently return. Kept the existing HUD container and styles.
+- Reduced the outdoor top-left HUD to the live street count. The browser entry helper now checks the whole label so introductory copy cannot silently return. Kept the existing HUD container and styles, and removed the now-unused district label state and lookup.
 - Fixed production binding, exact configured HTTP/WebSocket origin acceptance and opt-in guest profile entry. Signed nonce validation, hashed bearer sessions, moderation, ownership checks and admin allowlists remain in place. Real rewards and external market access remain off.
 - Scoped Heroku Postgres TLS handling to an explicit database setting, bounded pool connections and connection timeout, and added idle pool error handling. Heroku refuses startup without persistent database configuration. Existing transactional schema creation and query helpers are reused; no duplicate storage system or new recovery/lease state machine.
 - Reviewed imports, unused code, duplicate logic, startup/error paths, origin validation, query parameters and deployment contents. Runtime dependency audit reports zero known vulnerabilities. Candidate source scan found no private keys, GitHub tokens, cloud access keys or embedded database credentials; environment files and local data stay ignored.
