@@ -272,6 +272,46 @@
   font: 11px Silkscreen;
   color: var(--muted) !important;
 }
+.night-x-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  background: #08090de6;
+  color: var(--bone);
+  text-decoration: none;
+  text-align: left;
+  font:
+    16px Archivo,
+    sans-serif;
+}
+.night-x-profile > span:first-child {
+  font-size: 28px;
+}
+.night-x-profile small {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font: 10px Silkscreen;
+}
+.night-x-profile:hover {
+  border-color: var(--blood);
+  background: #251013;
+}
+.night-x-profile:focus-visible {
+  outline: 3px solid var(--bone);
+  outline-offset: 4px;
+}
+.night-loading > .night-x-profile {
+  position: absolute;
+  top: 48px;
+  right: 64px;
+  z-index: 1;
+}
+.hl-pause > .night-x-profile {
+  margin-top: 20px;
+}
 .night-menu-shade {
   position: absolute;
   inset: 0;

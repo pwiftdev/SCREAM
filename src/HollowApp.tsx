@@ -6,6 +6,7 @@ import { Arrival } from './screens/hollow/Arrival';
 import { HollowSettingsPanel } from './screens/hollow/Settings';
 import { AssetLoading } from './screens/rework/AssetLoading';
 import { Stage } from './screens/rework/ui';
+import { XProfileLink } from './screens/rework/XProfileLink';
 import { hollowAudio } from './lib/hollow-audio';
 import {
   myHouse,
@@ -280,6 +281,7 @@ function Game() {
               Pausing does not protect you from other players. Combat logout
               counts as a death.
             </small>
+            <XProfileLink />
           </section>
         </div>
       )}

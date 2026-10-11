@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { loadAssetPack } from '../../game/rework/asset-pack';
 import { Logo } from '../hollow/Arrival';
 import { Segments } from './ui';
+import { XProfileLink } from './XProfileLink';
 export function AssetLoading({ children }: { children: ReactNode }) {
   const [progress, setProgress] = useState(0);
   const [ready, setReady] = useState(false);
@@ -25,6 +26,7 @@ export function AssetLoading({ children }: { children: ReactNode }) {
   if (ready) return children;
   return (
     <section className="night-loading">
+      <XProfileLink />
       <div className="night-loading-brand">
         <Logo />
         <h1>LET’S SCREAM TOGETHER</h1>

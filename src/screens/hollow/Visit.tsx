@@ -17,6 +17,7 @@ import { useVoice, MicMeter } from '../rework/mic';
 import { readHollowSettings } from '../../lib/hollow-settings';
 import type { MicMark } from '../../../shared/house/mic';
 import { VisitController } from '../../game/hollow/controller';
+import { XProfileLink } from '../rework/XProfileLink';
 export interface RunResult {
   outcome: VisitState['outcome'];
   ticks: number;
@@ -301,6 +302,7 @@ export function Visit({
               {hud.tick ? 'RESUME' : 'STEP INSIDE'}
             </button>
             <button onClick={onExit}>BACK TO THE STREET</button>
+            <XProfileLink />
           </section>
         </div>
       )}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { hollowAudio } from '../../lib/hollow-audio';
 import { Backdrop } from '../rework/Backdrop';
 import { Segments, PanelTitle } from '../rework/ui';
+import { XProfileLink } from '../rework/XProfileLink';
 export function Logo({ className = '' }: { className?: string }) {
   return (
     <img
@@ -62,6 +63,13 @@ export function Arrival({
     if (!ready || busy) return;
     const key = (e: KeyboardEvent) => {
       if (e.code === 'Tab' || e.code === 'Escape') return;
+      if (
+        e.target instanceof Element &&
+        e.target.closest(
+          'a, button, input, select, textarea, [contenteditable]',
+        )
+      )
+        return;
       void hollowAudio.unlock().catch(() => {});
       onPlay();
     };
@@ -106,6 +114,7 @@ export function Arrival({
       <button className="night-loading-settings" onClick={onSettings}>
         AUDIO & ACCESSIBILITY
       </button>
+      <XProfileLink />
     </section>
   );
 }
