@@ -1906,3 +1906,39 @@
   font-size: 9px;
   color: var(--muted);
 }
+.night-contract {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  background: #08090ed9;
+}
+.night-contract label {
+  display: block;
+  color: var(--muted);
+  font: 11px Silkscreen;
+  margin-bottom: 6px;
+}
+.night-contract input {
+  display: block;
+  width: 44ch;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--bone);
+  font: 16px monospace;
+}
+.night-contract button {
+  padding: 14px 18px;
+  font: 18px 'Big Shoulders Display';
+  font-weight: 900;
+  white-space: nowrap;
+}
+.night-contract [role='status'] {
+  display: block;
+  min-height: 16px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--candy);
+}

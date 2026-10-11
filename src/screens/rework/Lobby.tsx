@@ -8,6 +8,7 @@ import { hollowAudio } from '../../lib/hollow-audio';
 import { Logo } from '../hollow/Arrival';
 import { Backdrop } from './Backdrop';
 import { XProfileLink } from './XProfileLink';
+import { ContractAddress } from './ContractAddress';
 import { useWorldPresence } from './useWorldPresence';
 
 export function Lobby({
@@ -171,6 +172,7 @@ export function Lobby({
       </aside>
       <footer className="night-entry-footer">
         <XProfileLink />
+        <ContractAddress />
         <span>
           FREE TO ENTER · NO HOUSE REQUIRED
           <br />
