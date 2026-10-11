@@ -8,7 +8,7 @@ Run `npm ci`, then `npm run dev` with Node 26. Play at **http://127.0.0.1:5173**
 
 ## Your first night
 
-1. Press a key after loading to spawn in a distant part of the world. No house or plot is required.
+1. Press a key after loading to open the cinematic main menu. Enter a username, optionally paste your public Solana wallet address, and choose **Join the world** to spawn in a distant part of the map. No house or plot is required.
 2. Explore, use Q to scare nearby players, and select the crowbar with 2 to fight. Find a grave shovel in the world and press E to collect it; select it with 3.
 3. Walk to a free plot sign and press E to claim it and build right there. E opens the material palette; M returns to building. Save and return outside at any time.
 4. Hide up to three stash chests. Test Raid, find a stash and escape: the server verifies the draft and opens the house automatically.

@@ -340,173 +340,6 @@
   display: block;
   margin-top: 10px;
 }
-.night-menu {
-  position: absolute;
-  top: 290px;
-  left: 96px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  align-items: flex-start;
-}
-.night-menu button {
-  background: none;
-  border: 0;
-  text-align: left;
-  padding: 0 0 0 42px;
-  transition: transform 0.15s;
-  position: relative;
-}
-.night-menu button:hover {
-  transform: translateX(14px);
-}
-.night-menu strong {
-  font-size: 56px;
-  display: block;
-}
-.night-menu button.primary strong {
-  font-size: 80px;
-}
-.night-menu button.primary:before {
-  content: '';
-  width: 18px;
-  height: 18px;
-  background: var(--blood);
-  position: absolute;
-  left: 0;
-  top: 36px;
-}
-.night-menu span {
-  font: 18px Archivo;
-  color: var(--muted);
-  display: block;
-  margin-top: 9px;
-}
-.night-lobby-side {
-  position: absolute;
-  top: 64px;
-  right: 64px;
-  width: 430px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.night-profile {
-  display: flex;
-  gap: 14px;
-  padding: 18px;
-}
-.night-profile img {
-  width: 56px;
-  height: 56px;
-}
-.night-profile > div {
-  flex: 1;
-}
-.night-profile h3 {
-  font-size: 30px;
-  margin: 0;
-}
-.night-profile small {
-  font-size: 9px;
-  color: var(--muted);
-}
-.night-profile .night-segments {
-  margin-top: 10px;
-  height: 8px;
-}
-.night-wallets {
-  display: flex;
-  gap: 12px;
-}
-.night-wallets section {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px;
-}
-.night-wallets img {
-  width: 38px;
-  height: 38px;
-}
-.night-wallets strong {
-  font-size: 36px;
-}
-.night-wallets small {
-  font-size: 9px;
-  display: block;
-}
-.night-house-card {
-  margin-top: 22px;
-}
-.night-house-card h3 {
-  font-size: 34px;
-}
-.night-house-stats {
-  display: flex;
-  border: 1px solid var(--line);
-}
-.night-house-stats > div {
-  flex: 1;
-  padding: 14px;
-  border-right: 1px solid var(--line);
-}
-.night-house-stats b {
-  display: block;
-  font: 900 36px 'Big Shoulders Display';
-}
-.night-house-stats small {
-  font-size: 9px;
-  letter-spacing: 1px;
-}
-.night-house-card p,
-.night-tonight p {
-  font-size: 17px;
-}
-.night-house-card button {
-  width: 100%;
-}
-.night-tonight {
-  margin-top: 20px;
-}
-.night-party-slots {
-  display: flex;
-  gap: 6px;
-}
-.night-party-slots > * {
-  flex: 1;
-  min-width: 0;
-  text-align: center;
-  padding: 16px 4px;
-  border: 1px solid var(--line);
-  background: #111114;
-}
-.night-party-slots b {
-  display: block;
-  font: 800 24px 'Big Shoulders Display';
-}
-.night-party-slots small {
-  font-size: 8px;
-}
-.night-lobby-foot {
-  position: absolute;
-  left: 96px;
-  bottom: 26px;
-  font: 10px Silkscreen;
-  letter-spacing: 2px;
-  color: var(--muted);
-}
-.night-menu-return {
-  position: absolute;
-  left: 40px;
-  bottom: 192px;
-  z-index: 20;
-  border: 1px solid var(--line);
-  padding: 12px;
-  background: #08080acc;
-  font: 11px Silkscreen;
-}
 .night-stage .hl-scrim {
   position: absolute;
   z-index: 40;
@@ -1590,15 +1423,7 @@
   padding: 12px;
   color: var(--bone);
 }
-.night-lobby-foot button {
-  border: 0;
-  border-left: 1px solid #2a2a30;
-  background: transparent;
-  margin-left: 20px;
-  padding-left: 20px;
-  font: 9px Silkscreen;
-  letter-spacing: 1px;
-}
+
 .night-stage .hl-dashboard {
   max-height: 950px;
   overflow: auto;
@@ -1908,4 +1733,176 @@
 .hl-app:has(> .held-map-overlay) > .night-hotbar,
 .hl-app:has(> .held-map-overlay) > .night-crosshair {
   visibility: hidden;
+}
+
+.night-main-menu .night-menu-shade {
+  background: linear-gradient(
+    90deg,
+    #030407f5 0%,
+    #030407e6 34%,
+    #03040738 67%,
+    #03040755 100%
+  );
+}
+.night-main-menu .night-brand h2 {
+  font-size: 40px;
+}
+.night-presence {
+  position: absolute;
+  top: 64px;
+  right: 64px;
+  width: 340px;
+  border-top: 2px solid var(--blood);
+  background: #08090ed9;
+}
+.night-presence > span,
+.night-presence small {
+  font: 11px Silkscreen;
+  color: var(--muted);
+}
+.night-presence > span {
+  color: var(--bone);
+}
+.night-presence > div {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 16px 0;
+}
+.night-presence b {
+  font: 64px 'Big Shoulders Display';
+  font-weight: 900;
+  line-height: 1;
+}
+.night-presence > div > span {
+  font: 12px Silkscreen;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.night-entry {
+  position: absolute;
+  left: 96px;
+  top: 242px;
+  width: 620px;
+}
+.night-entry h1 {
+  font-size: 96px;
+  margin: 22px 0 20px;
+}
+.night-entry h1 em {
+  color: var(--blood);
+  font-style: normal;
+}
+.night-entry > p {
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+.night-entry label {
+  display: flex;
+  justify-content: space-between;
+  font: 12px Silkscreen;
+  letter-spacing: 2px;
+  margin: 20px 0 10px;
+}
+.night-entry label span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.night-entry input {
+  width: 100%;
+  height: 58px;
+  padding: 14px 18px;
+  background: #08090eeb;
+  border: 1px solid #555058;
+  color: var(--bone);
+  font:
+    20px Archivo,
+    sans-serif;
+}
+.night-entry input::placeholder {
+  color: #928e87;
+}
+.night-entry input:focus-visible {
+  outline: 2px solid var(--blood);
+  outline-offset: 3px;
+}
+.night-entry form > small {
+  display: block;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 10px;
+}
+.night-entry-error {
+  min-height: 44px;
+  padding: 8px 0;
+  color: #ff9999;
+  font-size: 16px;
+}
+.night-entry-actions {
+  display: flex;
+  gap: 16px;
+}
+.night-entry-actions button {
+  height: 66px;
+  font: 24px 'Big Shoulders Display';
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.night-entry-actions .hl-primary {
+  flex: 1;
+  background: var(--blood);
+  color: var(--bone);
+  border: 1px solid var(--blood);
+}
+.night-entry-actions .hl-primary:hover {
+  background: #a50e18;
+}
+.night-entry-actions .night-outline {
+  width: 172px;
+  background: #08090ec9;
+}
+.night-menu-story {
+  position: absolute;
+  right: 96px;
+  bottom: 176px;
+  width: 580px;
+  text-align: right;
+  text-shadow: 0 3px 20px #000;
+}
+.night-menu-story > span {
+  color: var(--candy);
+  font: 12px Silkscreen;
+  letter-spacing: 3px;
+}
+.night-menu-story h2 {
+  font-size: 72px;
+  margin: 18px 0;
+}
+.night-menu-story p {
+  color: var(--bone);
+  font-size: 19px;
+  line-height: 1.5;
+}
+.night-entry-footer {
+  position: absolute;
+  left: 96px;
+  right: 96px;
+  bottom: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.night-entry-footer > span {
+  text-align: right;
+  font: 11px Silkscreen;
+  letter-spacing: 1px;
+  line-height: 2;
+  color: var(--bone);
+}
+.night-entry-footer small {
+  font-size: 9px;
+  color: var(--muted);
 }

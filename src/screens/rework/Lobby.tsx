@@ -1,174 +1,181 @@
+import { useEffect, useRef, useState } from 'react';
+import {
+  playerProfile,
+  type PlayerProfile,
+} from '../../../shared/player-profile';
+import { rememberedProfile, savedProfile } from '../../lib/player-profile';
 import { hollowAudio } from '../../lib/hollow-audio';
-import { useEffect, useMemo, useState } from 'react';
-import type { OwnHouse } from '../../lib/hollow-api';
-import { decodeHouse } from '../../../shared/house/format';
-import { B } from '../../../shared/house/blocks';
-import { nightmare } from '../../../shared/house/rework';
 import { Logo } from '../hollow/Arrival';
-import { useCandyStatus } from '../hollow/CandyVault';
 import { Backdrop } from './Backdrop';
-import { PanelTitle, Segments, ItemIcon, useDawn } from './ui';
+import { XProfileLink } from './XProfileLink';
+import { useWorldPresence } from './useWorldPresence';
+
 export function Lobby({
-  own,
-  onPlay,
-  onBuild,
-  onPlots,
-  onReport,
+  onJoin,
   onSettings,
   busy,
-  onExtra,
+  error,
+  blocked,
 }: {
-  own: OwnHouse | null;
-  onPlay: () => void;
-  onBuild: () => void;
-  onPlots: () => void;
-  onReport: () => void;
+  onJoin: (profile: PlayerProfile) => void;
   onSettings: () => void;
   busy: boolean;
-  onExtra: (panel: string) => void;
+  error: string;
+  blocked: boolean;
 }) {
+  const [profile, setProfile] = useState(rememberedProfile);
+  const [validation, setValidation] = useState('');
+  const dirty = useRef(false);
+  const presence = useWorldPresence();
   useEffect(() => {
     hollowAudio.menu();
+    let active = true;
+    void savedProfile()
+      .then((saved) => {
+        if (active && saved && !dirty.current) setProfile(saved);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, []);
-  const house = useMemo(
-      () => (own ? decodeHouse(own.house, true) : undefined),
-      [own],
-    ),
-    { status } = useCandyStatus(!!own),
-    dawn = useDawn(),
-    [invite, setInvite] = useState('');
-  const candy = (status?.hunted ?? 0) + (status?.defended ?? 0),
-    rating = house ? nightmare(house).total : 0;
-  const choices = [
-    ['PLAY TONIGHT', 'Head out and hunt for candy', onPlay],
-    ['MY HAUNTED HOUSE', 'Build traps, hide your stashes', onBuild],
-    ['CHOOSE A PLOT', 'Free plots open in the neighborhood', onPlots],
-    ['LAST NIGHT’S REPORT', 'Raids, scares and candy', onReport],
-    ['SETTINGS', 'Audio, mic and controls', onSettings],
-  ] as const;
+  function edit(key: keyof PlayerProfile, value: string) {
+    dirty.current = true;
+    setValidation('');
+    setProfile((current) => ({ ...current, [key]: value }));
+  }
   return (
-    <section className="night-lobby">
-      <Backdrop mode="menu" house={house} />
+    <section
+      className="night-lobby night-main-menu"
+      aria-label="Main menu"
+      inert={blocked}
+    >
+      <Backdrop mode="menu" />
       <div className="night-menu-shade" />
       <header className="night-brand">
         <Logo />
         <div>
           <h2>LET’S SCREAM TOGETHER</h2>
-          <small>NIGHT {dawn.index} · FOG NIGHT</small>
+          <small>EVERY NIGHT IS HALLOWEEN</small>
         </div>
       </header>
-      <nav className="night-menu">
-        {choices.map(([title, sub, action], i) => (
-          <button
-            disabled={busy}
-            key={title}
-            className={i === 0 ? 'primary' : ''}
-            onClick={action}
-          >
-            <strong>{title}</strong>
-            <span>{sub}</span>
-          </button>
-        ))}
-      </nav>
-      <aside className="night-lobby-side">
-        <section className="night-profile night-panel">
-          <Logo />
-          <div>
-            <h3>{own ? `WANDERER ${own.code.slice(0, 4)}` : 'NEW WANDERER'}</h3>
-            <small>YOUR LOCAL PROFILE</small>
-            <Segments
-              value={own?.published ? 100 : own?.plot ? 50 : 0}
-              count={20}
-              label="House setup progress"
-            />
-          </div>
-        </section>
-        <div className="night-wallets">
-          <section className="night-panel">
-            <ItemIcon name="sprite:candy" />
-            <div>
-              <strong>{candy.toLocaleString()}</strong>
-              <small>CANDY · SIMULATED</small>
-            </div>
-          </section>
-          <section className="night-panel">
-            <Logo />
-            <div>
-              <strong>{candy.toLocaleString()}</strong>
-              <small>$SCREAM · SIMULATED</small>
-            </div>
-          </section>
+      <aside
+        className="night-presence night-panel"
+        aria-label="Live player count"
+        aria-live="polite"
+      >
+        <span>LIVE · ON THE STREETS</span>
+        <div>
+          <b>{presence ? presence.players.toLocaleString() : '—'}</b>
+          <span>
+            PLAYERS
+            <br />
+            EXPLORING
+          </span>
         </div>
-        <section className="night-panel night-house-card">
-          <PanelTitle>YOUR HOUSE</PanelTitle>
-          <h3>
-            {own?.plot
-              ? `PLOT ${String(own.plot.slot + 1).padStart(2, '0')} · YOUR HAUNT`
-              : 'YOUR NIGHTMARE STARTS HERE'}
-          </h3>
-          <div className="night-house-stats">
-            <div>
-              <b>{house?.blocks.filter((b) => b === B.CANDY).length ?? 0}</b>
-              <small>STASHES</small>
-            </div>
-            <div>
-              <b className="candy-text">{status?.round?.remaining ?? 0}</b>
-              <small>HIDDEN · SIMULATED</small>
-            </div>
-            <div>
-              <b>{rating}</b>
-              <small>NIGHTMARE</small>
-            </div>
-          </div>
-          <p>
-            {own?.published
-              ? 'Your door is open. Keep your hiding places secret.'
-              : 'Choose a free plot, hide candy and test your escape.'}
-          </p>
-          <button className="night-outline" onClick={onBuild}>
-            FORTIFY HOUSE
-          </button>
-        </section>
-        <section className="night-panel night-tonight">
-          <PanelTitle>
-            TONIGHT <span>DAWN IN {dawn.text}</span>
-          </PanelTitle>
-          <h3>FOG NIGHT</h3>
-          <p>
-            Visibility drops in the graveyard. Find a stash, escape the house
-            and keep your reward.
-          </p>
-          <div className="night-party-slots">
-            <div>
-              <b>YOU</b>
-              <small>READY</small>
-            </div>
-            {[1, 2, 3].map((i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  navigator.clipboard
-                    .writeText(
-                      `${location.origin}/?neighborhood=${Math.floor((own?.plot?.slot ?? 0) / 40)}`,
-                    )
-                    .then(() => setInvite('Invite link copied.'))
-                    .catch(() => setInvite(location.origin));
-                }}
-              >
-                <b>+</b>
-                <small>INVITE</small>
-              </button>
-            ))}
-          </div>
-          {invite && <small role="status">{invite}</small>}
-        </section>
+        <small>
+          {presence
+            ? `UP TO ${presence.streetCapacity} PLAYERS PER STREET`
+            : 'CONNECTING TO THE NEIGHBORHOOD…'}
+        </small>
       </aside>
-      <footer className="night-lobby-foot">
-        FREE ENTRY · LOCAL PLAYTEST · ALL $SCREAM REWARDS ARE SIMULATED
-        <button onClick={() => onExtra('my house')}>HOUSE RECORDS</button>
-        <button onClick={() => onExtra('leaderboard')}>LEADERBOARD</button>
-        <button onClick={() => onExtra('windows')}>LIVE WINDOWS</button>
-        <button onClick={() => onExtra('wallet')}>PROFILE</button>
+      <div className="night-entry">
+        <span className="hl-eyebrow">THE NIGHT IS BETTER WITH COMPANY</span>
+        <h1>
+          DON’T SCREAM
+          <br />
+          <em>ALONE.</em>
+        </h1>
+        <p>
+          Wander into the dark. Hunt for candy.
+          <br />
+          Give someone a reason to run.
+        </p>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (busy) return;
+            try {
+              const next = playerProfile(profile);
+              setValidation('');
+              onJoin(next);
+            } catch (e) {
+              setValidation((e as Error).message);
+            }
+          }}
+        >
+          <label htmlFor="player-name">YOUR USERNAME</label>
+          <input
+            id="player-name"
+            name="username"
+            autoComplete="nickname"
+            placeholder="What should we call you?"
+            minLength={2}
+            maxLength={20}
+            required
+            disabled={busy}
+            value={profile.name}
+            onChange={(e) => edit('name', e.target.value)}
+          />
+          <label htmlFor="player-wallet">
+            PUBLIC SOLANA WALLET <span>OPTIONAL</span>
+          </label>
+          <input
+            id="player-wallet"
+            name="publicWallet"
+            autoComplete="off"
+            autoCapitalize="none"
+            spellCheck={false}
+            placeholder="Paste your public Solana address"
+            maxLength={64}
+            disabled={busy}
+            value={profile.publicWallet}
+            aria-describedby="player-wallet-help"
+            onChange={(e) => edit('publicWallet', e.target.value)}
+          />
+          <small id="player-wallet-help">
+            Saved to your profile. No wallet connection required.
+          </small>
+          <div className="night-entry-error" aria-live="polite">
+            {(validation || error) && (
+              <span role="alert">{validation || error}</span>
+            )}
+          </div>
+          <div className="night-entry-actions">
+            <button className="hl-primary" type="submit" disabled={busy}>
+              {busy ? 'JOINING THE NIGHT…' : 'JOIN THE WORLD'}
+            </button>
+            <button
+              className="night-outline"
+              type="button"
+              onClick={onSettings}
+              disabled={busy}
+            >
+              SETTINGS
+            </button>
+          </div>
+        </form>
+      </div>
+      <aside className="night-menu-story" aria-hidden="true">
+        <span>LIGHTS ON. DOORS LOCKED.</span>
+        <h2>
+          SOMETHING
+          <br />
+          IS STILL OUT THERE.
+        </h2>
+        <p>
+          Explore the woods. Build your haunt.
+          <br />
+          Trust no footsteps but your own.
+        </p>
+      </aside>
+      <footer className="night-entry-footer">
+        <XProfileLink />
+        <span>
+          FREE TO ENTER · NO HOUSE REQUIRED
+          <br />
+          <small>$SCREAM REWARDS ARE CURRENTLY SIMULATED</small>
+        </span>
       </footer>
     </section>
   );

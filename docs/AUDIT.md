@@ -1,3 +1,13 @@
+# Main menu and player profile audit — 11 October 2026
+
+- Restored a distinct main menu between the loading/press-key screen and world entry. Reused the existing Lobby, Backdrop, Cinematic, Settings, audio transitions and X link. Added a slow menu camera sway that respects reduced motion. Removed obsolete lobby house cards, action handlers and unused styles instead of retaining two menu implementations.
+- Username and optional pasted Solana address share one client/server validator. The existing profile table stores them with an additive, repeatable SQLite/PostgreSQL migration that preserves existing avatars and profile identity. Existing SQL query helpers keep values parameterized; only fixed migration identifiers are interpolated.
+- Profile GET/PUT uses the existing signed bearer session and moderation checks. Pasted addresses are unverified private profile metadata; they never become login identity, house ownership, admin access, holdings or payment authority. Realtime names come from the saved server profile rather than a forged join option. Street snapshots contain no pasted wallet address.
+- The public count reads current outdoor connections without database polling or wallet disclosure. Counts refresh every ten seconds, do not overlap requests, pause while hidden and cancel on unmount. Failure shows unavailable rather than fabricated zero. Entry waits for a successful profile save; browser cache is optional, and delayed profile reads cannot replace fields the player is already editing.
+- Settings use a named modal, focus the close control on opening and make the menu inert while open, so background form keys cannot spawn the player.
+- Validation: 189 unit/integration tests and four disposable PostgreSQL tests passed, including legacy profile migration and persistence after reopening. Ten targeted browser checks passed across menu flow, multiplayer combat, plot building, map controls and lighting; menu captures cover 1920×1080 and 1280×720. TypeScript, ESLint, direct Prettier and the production build pass.
+- Audited imports, helper reuse, duplicated profile/menu logic, input bounds, failure cleanup, renderer disposal, query scope and extra request frequency. No new recovery/lease state machine or reward integration. Existing guest-session expiry remains unchanged.
+
 # Heroku deployment and HUD audit — 11 October 2026
 
 - Reduced the outdoor top-left HUD to the live street count. The browser entry helper now checks the whole label so introductory copy cannot silently return. Kept the existing HUD container and styles, and removed the now-unused district label state and lookup.

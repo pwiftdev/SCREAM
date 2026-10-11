@@ -50,6 +50,11 @@ export class Cinematic {
     const loop = (now: number) => {
       const t = (now - start) / 1000;
       actor?.animate(r.reducedMotion ? 0 : t);
+      if (mode === 'menu' && !r.reducedMotion) {
+        r.camera.position.x = 14.5 + Math.sin(t * 0.12) * 0.7;
+        r.camera.position.z = -6 + Math.sin(t * 0.09) * 0.3;
+        r.camera.lookAt(11, 1.55, 0);
+      }
       if (mode === 'loading' && !r.reducedMotion) {
         r.camera.position.z = 195 - Math.min(12, t * 0.35);
         r.camera.position.y =

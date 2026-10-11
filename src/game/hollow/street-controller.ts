@@ -222,7 +222,6 @@ export class StreetController {
     );
     void new Client(endpoint())
       .joinOrCreate('street', {
-        name: 'wanderer',
         token: laneSession(),
         street: this.street,
       })

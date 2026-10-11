@@ -38,21 +38,22 @@ export class Store {
   async start() {
     if (this.pool) await this.pool.query(schema);
     else this.sqlite!.exec(schema);
-    for (const [column, definition] of [
-      ['finished_at', 'BIGINT NOT NULL DEFAULT 0'],
-      ['role', "TEXT NOT NULL DEFAULT 'survivor'"],
+    for (const [table, column, definition] of [
+      ['profiles', 'public_wallet', "TEXT NOT NULL DEFAULT ''"],
+      ['results', 'finished_at', 'BIGINT NOT NULL DEFAULT 0'],
+      ['results', 'role', "TEXT NOT NULL DEFAULT 'survivor'"],
     ]) {
       if (this.pool)
         await this.pool.query(
-          `ALTER TABLE results ADD COLUMN IF NOT EXISTS ${column} ${definition}`,
+          `ALTER TABLE ${table} ADD COLUMN IF NOT EXISTS ${column} ${definition}`,
         );
       else if (
-        !this.sqlite!.prepare('PRAGMA table_info(results)')
+        !this.sqlite!.prepare(`PRAGMA table_info(${table})`)
           .all()
           .some((r) => r.name === column)
       )
         this.sqlite!.exec(
-          `ALTER TABLE results ADD COLUMN ${column} ${definition}`,
+          `ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`,
         );
     }
     const index =

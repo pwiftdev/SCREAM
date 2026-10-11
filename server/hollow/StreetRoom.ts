@@ -38,14 +38,17 @@ export class StreetRoom extends Room {
   >();
   private screamed = new Map<string, number>();
   private identify?: (token: string) => Promise<string>;
+  private profileName?: (wallet: string) => Promise<string | undefined>;
   private sessions?: OutdoorSessions;
   private street = 0;
   onCreate(options: {
     street?: number;
     identify?: (token: string) => Promise<string>;
+    profileName?: (wallet: string) => Promise<string | undefined>;
     sessions?: OutdoorSessions;
   }) {
     this.identify = options.identify;
+    this.profileName = options.profileName;
     this.sessions = options.sessions;
     if (
       options.street !== undefined &&
@@ -191,8 +194,10 @@ export class StreetRoom extends Room {
     },
   ) {
     let state = new OutdoorSession();
+    let name = options.name;
     if (options.token && this.identify && this.sessions) {
       const identity = await this.identify(options.token);
+      name = (await this.profileName?.(identity)) ?? name;
       state = this.sessions.get(identity);
     }
     if (state.connection)
@@ -218,10 +223,8 @@ export class StreetRoom extends Room {
     this.ghosts.set(c.sessionId, {
       id: c.sessionId,
       name:
-        cleanText(
-          typeof options.name === 'string' ? options.name : 'wanderer',
-          20,
-        ) || 'wanderer',
+        cleanText(typeof name === 'string' ? name : 'wanderer', 20) ||
+        'wanderer',
       ...state.life,
     });
     c.send('spawn', { ...state.life });

@@ -18,6 +18,7 @@ import { payScheduledPrizes } from './hollow/events';
 import { OutdoorSessions } from './hollow/outdoor-sessions';
 import { StreetRoom } from './hollow/StreetRoom';
 import { hollowApi } from './hollow/api';
+import { readPlayerProfile } from './hollow/player-profile';
 export async function createGameServer({
   port = 2567,
   host = '127.0.0.1',
@@ -129,6 +130,8 @@ export async function createGameServer({
   server
     .define('street', StreetRoom, {
       identify: (token: string) => hollow.houses.identity(token),
+      profileName: async (wallet: string) =>
+        (await readPlayerProfile(hollow.houses.db, wallet))?.name,
       sessions: outdoor,
     })
     .filterBy(['street']);

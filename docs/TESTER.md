@@ -4,7 +4,7 @@ Open **http://127.0.0.1:5173** while `npm run dev` runs. The interface follows `
 
 ## First session
 
-1. Press a key after loading. Enter the world directly without claiming a house. Use separate browser profiles to check distant random spawns; reloading the same profile should preserve its location, health and night score.
+1. Press a key after loading to open the cinematic main menu. Enter a username, optionally paste a public Solana wallet address, open Settings and return, then select Join the world without claiming a house. Invalid names/addresses should stay in the menu with a clear error. Check that the live count changes when another player enters or leaves the streets, and that an unavailable count shows a dash rather than a fake zero. Use separate browser profiles to check distant random spawns; reloading the same profile should preserve its location, health and night score.
 2. Explore all five districts. Check that unlit forest areas are dark, lamps form small pools, and the lantern reveals nearby ground. Grass/leaf footfalls should stay quiet beneath the atmosphere. Compare gravel and mud.
 3. Select crowbar (2), approach another player and left-click. Hits require facing, reach, clear terrain and stamina. Four crowbar hits kill. Attack cooldown and spawn protection must work; swinging immediately ends the attacker's protection.
 4. Collect a shovel with E at a marked site, select it with 3 and attack. Three shovel hits kill. Check weapon/arm animations, positional impacts, hurt feedback, death delay and distant respawn. Found shovels and loose candy are lost on death. Pause is not PvP immunity; disconnecting within eight seconds of damage counts as death. A second tab with the same profile must be rejected.
@@ -16,6 +16,12 @@ Open **http://127.0.0.1:5173** while `npm run dev` runs. The interface follows `
 10. Judge the same experience at 1280×720 and 1920×1080. Check readable health, stamina, compass, four-slot outdoor hotbar, interaction prompts and unobstructed microphone controls.
 
 Outdoor combat and scores are local session gameplay, with no token payout for kills. House reward rules remain simulated and server-verified. Building and house interiors currently use separate scene instances, preserving the world location when you return; players cannot fight each other inside a raid or while building. The material palette is an editing tool, not a menu required to enter the world.
+
+## Main menu and profile
+
+- Reload: your saved username and pasted address should return. Escape → Main Menu leaves the street and restores the form. Verify 720p/1080p bounds and keyboard focus on inputs, Settings, Join and the X link.
+- Other players should see the saved username on your character. Pasted wallet addresses must never appear in street snapshots, grant ownership of another house, verify a wallet or change simulated holdings. Joining without a wallet address must work.
+- A failed profile save must keep your entries and leave you in the menu. Retry after restoring connectivity. Settings, reduced motion, music and X links must work before joining.
 
 ## What to judge critically
 

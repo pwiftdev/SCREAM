@@ -4,7 +4,7 @@ Use Node 26. Run `npm ci`, then `npm run dev`. Open **http://127.0.0.1:5173**. B
 
 ## Play and build
 
-Enter the neighborhood, walk off the road into the woods, and follow paths to the cemetery, chapel, orchard and last light. The outdoor map spans 410 × 590 units, with 40 plots per street and 15 seeded houses. Interiors are separate visit instances; the outdoor neighborhood is continuous. The chapel is an outdoor landmark, not a visit interior.
+After loading, open the main menu, choose a username, optionally paste a public Solana address and select Join the world. The menu shows a moving game scene, Settings and live outdoor player counts. Walk off the road into the woods, and follow paths to the cemetery, chapel, orchard and last light. The outdoor map spans 410 × 590 units, with 40 plots per street and 15 seeded houses. Interiors are separate visit instances; the outdoor neighborhood is continuous. The chapel is an outdoor landmark, not a visit interior.
 
 - Outdoors: WASD move, mouse look (drag if pointer capture is unavailable), Shift sprint, E search or knock, Q scream, hold V with the microphone enabled, M map, 1–9/wheel hotbar, Esc menu.
 - Inside: WASD move, Space jump, Shift sprint, Ctrl crouch, F flashlight, hold E at a stash, then return to the entrance. Esc pauses your local visit.
@@ -51,7 +51,7 @@ The owner authorized GitHub push, Heroku hosting, a running dyno and a database 
 
 ## Heroku hosting
 
-App: `lets-scream-together`, EU region, Heroku-24, Node 26. Public URL: <https://lets-scream-together-63d5be671be9.herokuapp.com/>. One Basic web dyno and one Essential-0 PostgreSQL database cost approximately $12/month before tax at the listed plan rates.
+App: `lets-scream-together`, EU region, Heroku-24, Node 26. Public URL: <https://playscream.fun/>. One Basic web dyno and one Essential-0 PostgreSQL database cost approximately $12/month before tax at the listed plan rates.
 
 `PUBLIC_ORIGIN` is the exact HTTPS app origin. `ALLOW_GUEST_PROFILES=true` enables the existing signed browser profile flow without a wallet extension. It does not grant admin rights or enable rewards. `TRUST_PROXY=1` trusts the Heroku router's appended client address. `DATABASE_SSL=heroku` enables TLS with Heroku's provider-managed certificate handling only on the database pool; all other TLS verification remains unchanged. `DATABASE_URL` is managed by the attached add-on and must never be committed or printed.
 
@@ -59,4 +59,6 @@ App: `lets-scream-together`, EU region, Heroku-24, Node 26. Public URL: <https:/
 
 Guest sessions currently expire after 24 hours and browser signing keys are in memory. This existing playtest account limitation needs durable guest identity before a long-term player launch. Real-wallet profiles can authenticate again with their existing key. Clearing browser data removes a guest's saved session.
 
-Deploy with `git push heroku main`; check `heroku ps --app lets-scream-together` and `/health`. Run `SCREAM_TEST_BASE_URL=https://lets-scream-together-63d5be671be9.herokuapp.com node scripts/production-smoke.mjs` for two-browser entry, multiplayer count, compact HUD, map and session reload checks. Set `SCREAM_SMOKE_RESTART_APP=lets-scream-together` only during a planned restart test; it disconnects all current players. Do not run database test fixtures against the hosted database.
+Deploy with `git push heroku main`; check `heroku ps --app lets-scream-together` and `/health`. Run `SCREAM_TEST_BASE_URL=https://playscream.fun node scripts/production-smoke.mjs` for two-browser entry, multiplayer count, compact HUD, map and session reload checks. Set `SCREAM_SMOKE_RESTART_APP=lets-scream-together` only during a planned restart test; it disconnects all current players. Do not run database test fixtures against the hosted database.
+
+Menu profile fields use the existing `profiles` table. `public_wallet` is unverified metadata, not a login key or an economy address. Signed session identity continues to own houses and permissions. The presence endpoint counts connected outdoor sessions only; players inside house instances are not counted as exploring outside. The client refreshes it every ten seconds and shows unavailable on errors.

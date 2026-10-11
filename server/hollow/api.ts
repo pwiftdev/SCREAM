@@ -10,6 +10,7 @@ import { LiveVisits } from './live-visits';
 import { Social } from './social';
 import { Moderation } from './moderation';
 import { Houses } from './houses';
+import { readPlayerProfile, savePlayerProfile } from './player-profile';
 export async function hollowApi(
   store: Store,
   auth: WalletAuth,
@@ -49,6 +50,12 @@ export async function hollowApi(
     r.json({ token: await houses.session(wallet), wallet });
   });
   router.get('/windows', (_q, r) => r.json(live.list()));
+  router.get('/presence', (_q, r) =>
+    r.json({
+      players: outdoor.connectedCount(),
+      streetCapacity: H.STREET_CAPACITY,
+    }),
+  );
   router.get('/windows/:id', async (q, r) =>
     r.json(await live.read(String(q.params.id))),
   );
@@ -81,6 +88,12 @@ export async function hollowApi(
       r.status(401).json({ error: (e as Error).message });
     }
   });
+  router.get('/profile', async (_q, r) =>
+    r.json(await readPlayerProfile(houses.db, r.locals.wallet)),
+  );
+  router.put('/profile', async (q, r) =>
+    r.json(await savePlayerProfile(houses.db, r.locals.wallet, q.body)),
+  );
   router.post('/report', async (q, r) =>
     r.json(
       await moderation.report(

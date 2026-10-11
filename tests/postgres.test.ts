@@ -3,6 +3,11 @@ import { Store } from '../server/store';
 import type { Snapshot } from '../shared/types';
 import pg from 'pg';
 import { PostgresStore } from '../server/house/pg-store';
+import { HollowDatabase } from '../server/hollow/database';
+import {
+  readPlayerProfile,
+  savePlayerProfile,
+} from '../server/hollow/player-profile';
 const url = process.env.SCREAM_TEST_DATABASE_URL;
 it.skipIf(!url)(
   'local Postgres stores profiles and idempotent match scores across reconnection',
@@ -19,6 +24,10 @@ it.skipIf(!url)(
       match = `match-${Date.now()}`;
     try {
       await s.profile(wallet, 'Mara', 0);
+      await savePlayerProfile(new HollowDatabase(s), wallet, {
+        name: 'Mara',
+        publicWallet: '11111111111111111111111111111111',
+      });
       const snapshot = {
         id: match,
         players: [
@@ -39,6 +48,12 @@ it.skipIf(!url)(
       const reopened = new Store(':memory:', url);
       try {
         await reopened.start();
+        expect(
+          await readPlayerProfile(new HollowDatabase(reopened), wallet),
+        ).toEqual({
+          name: 'Mara',
+          publicWallet: '11111111111111111111111111111111',
+        });
         expect(
           (await reopened.leaderboard()).find((r) => r.wallet === wallet)
             ?.points,

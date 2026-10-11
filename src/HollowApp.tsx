@@ -7,6 +7,9 @@ import { HollowSettingsPanel } from './screens/hollow/Settings';
 import { AssetLoading } from './screens/rework/AssetLoading';
 import { Stage } from './screens/rework/ui';
 import { XProfileLink } from './screens/rework/XProfileLink';
+import { Lobby } from './screens/rework/Lobby';
+import { playerProfile, type PlayerProfile } from '../shared/player-profile';
+import { rememberProfile } from './lib/player-profile';
 import { hollowAudio } from './lib/hollow-audio';
 import {
   myHouse,
@@ -48,6 +51,7 @@ function loadNeighborhood() {
 }
 function Game() {
   const [entered, setEntered] = useState(false),
+    [menuOpen, setMenuOpen] = useState(false),
     [panel, setPanel] = useState<'pause' | 'settings' | null>(null);
   const [own, setOwn] = useState<OwnHouse | null>(null),
     [building, setBuilding] = useState(false);
@@ -79,9 +83,7 @@ function Game() {
         }
       } catch {
         if (alive)
-          setError(
-            'The neighborhood could not update. Check the local server.',
-          );
+          setError('The neighborhood could not update. Please try again.');
       }
     };
     void load();
@@ -103,9 +105,13 @@ function Game() {
       setBusy(false);
     }
   }
-  async function enter() {
+  async function enter(input: PlayerProfile) {
     await action(async () => {
-      setOwn(await myHouse());
+      const profile = playerProfile(input);
+      const mine = await myHouse();
+      const saved = await laneApi<PlayerProfile>('/profile', profile, 'PUT');
+      rememberProfile(saved);
+      setOwn(mine);
       setEntered(true);
       setPanel(null);
       hollowAudio.street();
@@ -124,6 +130,13 @@ function Game() {
       setPanel(null);
       setFailed(null);
     });
+  }
+  function returnToMenu() {
+    setEntered(false);
+    setMenuOpen(true);
+    setPanel(null);
+    setError('');
+    setNotice('');
   }
   async function finished(run: RunResult, t = ticket.current) {
     if (verifying.current) return;
@@ -218,11 +231,20 @@ function Game() {
           }}
         />
       )}
-      {!entered && (
-        <Arrival
-          onPlay={() => void enter()}
+      {!entered && menuOpen && (
+        <Lobby
+          onJoin={(profile) => void enter(profile)}
           onSettings={() => setPanel('settings')}
           busy={busy}
+          error={error}
+          blocked={!!panel}
+        />
+      )}
+      {!entered && !menuOpen && (
+        <Arrival
+          onPlay={() => setMenuOpen(true)}
+          onSettings={() => setPanel('settings')}
+          busy={busy || !!panel}
         />
       )}
       {building && own && (
@@ -272,6 +294,7 @@ function Game() {
               RETURN TO THE WORLD
             </button>
             <button onClick={() => setPanel('settings')}>SETTINGS</button>
+            <button onClick={returnToMenu}>MAIN MENU</button>
             <p>
               1 lantern · 2 crowbar · 3 shovel · M map
               <br />
@@ -286,7 +309,12 @@ function Game() {
         </div>
       )}
       {panel === 'settings' && (
-        <div className="hl-scrim">
+        <div
+          className="hl-scrim"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Settings"
+        >
           <HollowSettingsPanel
             onClose={() => setPanel(entered ? 'pause' : null)}
           />
@@ -300,7 +328,7 @@ function Game() {
           </button>
         </div>
       )}
-      {error && (
+      {error && (entered || !menuOpen) && (
         <div className="hl-error" role="alert">
           {error}
           {failed && (

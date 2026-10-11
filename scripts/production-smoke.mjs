@@ -27,6 +27,12 @@ try {
     await p
       .getByRole('button', { name: 'PRESS ANY KEY', exact: true })
       .click({ timeout: 90000 });
+    const name = p.getByLabel('YOUR USERNAME', { exact: true });
+    await name.waitFor();
+    if (!(await name.inputValue())) await name.fill('Night Wanderer');
+    await p
+      .getByRole('button', { name: 'JOIN THE WORLD', exact: true })
+      .click();
     await expect(
       p.getByRole('meter', { name: 'Health', exact: true }),
     ).toBeVisible({ timeout: 30000 });

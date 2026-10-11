@@ -4,6 +4,12 @@ export async function menu(page: Page) {
   await page
     .getByRole('button', { name: 'PRESS ANY KEY', exact: true })
     .click();
+  const name = page.getByLabel('YOUR USERNAME', { exact: true });
+  await name.waitFor();
+  if (!(await name.inputValue())) await name.fill('Night Wanderer');
+  await page
+    .getByRole('button', { name: 'JOIN THE WORLD', exact: true })
+    .click();
   await expect(
     page.getByRole('meter', { name: 'Health', exact: true }),
   ).toBeVisible();

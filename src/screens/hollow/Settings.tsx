@@ -47,7 +47,12 @@ export function HollowSettingsPanel({ onClose }: { onClose: () => void }) {
   }
   return (
     <section className="hl-panel hl-settings">
-      <button className="hl-close" aria-label="Close" onClick={onClose}>
+      <button
+        className="hl-close"
+        aria-label="Close"
+        onClick={onClose}
+        autoFocus
+      >
         ×
       </button>
       <span className="hl-eyebrow">MAKE THE DARK YOURS</span>

@@ -6,6 +6,12 @@ export class OutdoorSessions {
     { night: number; state: OutdoorSession }
   >();
   constructor(private now = Date.now) {}
+  connectedCount() {
+    let count = 0;
+    for (const { state } of this.sessions.values())
+      if (state.connection) count++;
+    return count;
+  }
   get(identity: string) {
     const night = Math.floor(this.now() / (NIGHT.seconds * 1000));
     for (const [key, value] of this.sessions)
